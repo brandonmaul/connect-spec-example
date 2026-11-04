@@ -1,0 +1,7 @@
+# Product owns what Connect does. Engineering owns the tooling and the tags.
+# Replace the placeholder teams with real ones.
+
+/spec/        @your-org/connect-product
+/scripts/     @your-org/connect-engineering
+/.github/     @your-org/connect-engineering
+/docs/        @your-org/connect-product @your-org/connect-engineering

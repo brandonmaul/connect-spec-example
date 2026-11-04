@@ -1,0 +1,46 @@
+name: Propose a rule
+description: Describe how Connect should behave. An engineer will write it up as a rule for you to approve.
+title: "Rule: "
+labels: ["rule-request"]
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What should happen?
+      description: One behavior, in plain language.
+      placeholder: A message that cannot be sent stays visible as failed, with Retry and Delete.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: An example
+      description: The starting situation, what happens, and what the person should see.
+      placeholder: |
+        Given a user sends a message while the server is unreachable
+        When the send fails
+        Then the message stays in the timeline marked as failed
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it work this way?
+    validations:
+      required: true
+  - type: checkboxes
+    id: where
+    attributes:
+      label: Where does it apply?
+      options:
+        - label: iPhone and iPad
+        - label: Mac
+        - label: Browser and Android
+        - label: Connect V2 (Nitro)
+        - label: Who has Connect, sign-in or profiles (Nitro ID)
+        - label: Not sure, let engineering decide
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Figma, Runway, Huddle, or the Connect thread where this was decided.
