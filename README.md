@@ -49,7 +49,7 @@ Every rule looks the same:
 | The first sentence | The rule itself. |
 | Given / When / Then | One worked example: the starting situation, what happens, and what the person should see. |
 | **Rationale** | Why it works this way. |
-| **Needs** | Which parts of Connect must follow this rule (see [words you will see](#words-you-will-see)). |
+| **Needs** | Which parts of Connect must follow this rule (see [terms you will see](#terms-you-will-see)). |
 
 ## Where the rules are
 
@@ -78,13 +78,14 @@ Areas are named for what people do, not for a device. Something only the iPhone 
 only the web does goes in the area for what it is, and its **Needs** says which
 devices it is for.
 
-## Words you will see
+## Terms you will see
 
-**Needs** lists which parts of Connect must follow the rule. It has two halves.
+**Needs** lists the **targets** of a rule: the parts of Connect that must follow it.
+They come in two halves.
 
 **Where people see it. You choose these.**
 
-| Word | Means |
+| Target | Means |
 |---|---|
 | `ios` | Connect on iPhone and iPad |
 | `macos` | Connect on Mac |
@@ -95,7 +96,7 @@ A rule that only makes sense on iPhone says `ios`. A rule for every app says
 
 **What makes it work. Engineering adds these, so leave them out.**
 
-| Word | Means |
+| Target | Means |
 |---|---|
 | `ccl` | The shared engine built into the Connect apps. It is part of the apps, never instead of them. |
 | `server` | Connect V3's back end |
@@ -103,7 +104,7 @@ A rule that only makes sense on iPhone says `ios`. A rule for every app says
 | `nitroid` | Nitro ID, which passes people and groups from Nitro to Connect V3 |
 
 Some rules are only about what happens behind the scenes, like a change in V2
-showing up in V3. Those have only words from this second table. The words are
+showing up in V3. Those have only targets from this second table. Targets are
 always written in the order of the two tables, ending with the apps.
 
 Other names you will see in rules:

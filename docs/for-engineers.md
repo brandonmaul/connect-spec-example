@@ -61,7 +61,7 @@ is no "Apple" or "web" area. Which devices a rule applies to is said by its `Nee
 | Shortcuts from pressing and holding the app icon | APP-ICON-004 in The Connect app | `ios, web` |
 
 This keeps a behavior in one place when it spreads to more devices. If Android
-sharing arrives, the sharing rules stay where they are and gain one more word in
+sharing arrives, the sharing rules stay where they are and gain one more target in
 `Needs`. If a behavior needs different wording on different devices, write one rule
 per device in the same area, each with its own `Needs`.
 
@@ -112,13 +112,14 @@ areas are easier to find your way around.
 
 ## Needs
 
-`Needs` values are OFT artifact types, one per place that must prove the rule.
+`Needs` values are called **targets**. Each is an OFT artifact type: one place
+that must prove the rule.
 They are written in this order: `nitro`, `nitroid`, `server`, `ccl`, `ios`,
 `macos`, `web`.
 
 They fall into two groups, and the README gives each group a different owner:
 
-| Group | Types | Who writes them | Answers |
+| Group | Targets | Who writes them | Answers |
 |---|---|---|---|
 | Apps | `ios`, `macos`, `web` | Product, when writing the rule | Where does a person see this? |
 | Systems | `nitro`, `nitroid`, `server`, `ccl` | Engineering, in review | What has to work for it to happen? |
