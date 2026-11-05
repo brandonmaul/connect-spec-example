@@ -29,7 +29,7 @@ one who has left.
 Rationale:
 The directory is for finding people to talk to now.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-DIRECTORY-002: The directory is in phone-book order
 `req~PEOPLE-DIRECTORY-002~1`
@@ -42,7 +42,7 @@ The directory is sorted by last name, then by full name.
 Rationale:
 That is how people expect to look someone up.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-DIRECTORY-003: Search by name, filter by department and territory
 `req~PEOPLE-DIRECTORY-003~1`
@@ -71,7 +71,7 @@ can be picked alongside employees.
 Rationale:
 Some bots are useful members of a conversation.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-DIRECTORY-005: New people and leavers show up promptly
 `req~PEOPLE-DIRECTORY-005~1`
@@ -86,7 +86,7 @@ happens, and can be refreshed on demand.
 Rationale:
 On a new hire's first day, people need to find them.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-PROFILE-001: A profile shows what the viewer may see
 `req~PEOPLE-PROFILE-001~1`
@@ -115,7 +115,7 @@ A person's photo comes from the company directory.
 Rationale:
 One photo per person, kept where the company keeps it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-STATUS-001: People show as online, away or offline
 `req~PEOPLE-STATUS-001~1`
@@ -130,7 +130,7 @@ shows as offline.
 Rationale:
 Knowing whether someone is around sets how soon to expect a reply.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### PEOPLE-STATUS-002: Direct conversations show the other person's status
 `req~PEOPLE-STATUS-002~1`
@@ -157,7 +157,7 @@ A person whose connection drops for a moment does not appear to go offline.
 Rationale:
 Status that flickers is worse than none.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### PEOPLE-MEMBERS-001: The members list updates live
 `req~PEOPLE-MEMBERS-001~1`
@@ -171,7 +171,7 @@ A conversation's members list updates as people join, leave or become admins.
 Rationale:
 The list must show who can read the conversation now.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-MEMBERS-002: Members show who they are
 `req~PEOPLE-MEMBERS-002~1`
@@ -201,7 +201,7 @@ never an empty list.
 Rationale:
 An empty members list looks like nobody is there.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### PEOPLE-MEMBERS-004: Removed members are told why
 `req~PEOPLE-MEMBERS-004~1`
@@ -245,7 +245,7 @@ creates a conversation is an admin.
 Rationale:
 Two roles are easy to understand. Anything finer has not been needed.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### PEOPLE-ADMIN-002: Admins promote and demote members
 `req~PEOPLE-ADMIN-002~1`

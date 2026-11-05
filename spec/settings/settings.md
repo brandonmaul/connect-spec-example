@@ -41,7 +41,7 @@ A person who has never chosen a sort starts with Most recent.
 Rationale:
 Most recent is what most chat apps do, and what a new person expects.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### SETTING-SORT-003: Alphabetical follows the person's language
 `req~SETTING-SORT-003~1`
@@ -56,7 +56,7 @@ language, so accented letters sort with their plain letter.
 Rationale:
 People look for a name where their language puts it, the same as everywhere else on their device.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### SETTING-DENSITY-001: Rows can be compact or roomy
 `req~SETTING-DENSITY-001~1`
@@ -86,7 +86,7 @@ kind of device does not change it on another.
 Rationale:
 What is comfortable on a small phone screen is not what is comfortable on a large monitor.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### SETTING-SYNC-001: Sort and custom order follow the person to every device
 `req~SETTING-SYNC-001~1`
@@ -101,7 +101,7 @@ live on any device they have open.
 Rationale:
 A list that is in a different order on each device makes people hunt for conversations.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### SETTING-SYNC-002: Changing one setting keeps the others
 `req~SETTING-SYNC-002~1`
@@ -116,7 +116,7 @@ Changing one setting never resets another.
 Rationale:
 Losing a carefully arranged order because of an unrelated change is the kind of thing people do not forgive.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### SETTING-SYNC-003: The list opens in the person's own order
 `req~SETTING-SYNC-003~1`
@@ -131,7 +131,7 @@ default order first.
 Rationale:
 A list that appears in one order and then jumps to another looks broken.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### SETTING-SYNC-004: Custom order is shared with Connect V2
 `req~SETTING-SYNC-004~1`
@@ -145,4 +145,4 @@ A person's custom conversation order is the same in Connect V2 and V3.
 Rationale:
 People using both versions expect one list, not two.
 
-Needs: server, nitro
+Needs: nitro, server

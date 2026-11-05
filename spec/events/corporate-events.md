@@ -45,7 +45,7 @@ moment it is set to stop, judged by Connect's clock, not the device's.
 Rationale:
 Organisers time events to the minute. A banner that lingers or appears early points people at the wrong thing.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### EVENT-SHOW-003: The company decides who sees each event
 `req~EVENT-SHOW-003~1`
@@ -106,7 +106,7 @@ first. Sections and links keep the order the organisers set.
 Rationale:
 The newest event is the one people are most likely looking for.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### EVENT-TAP-001: Event links open where they point
 `req~EVENT-TAP-001~1`
@@ -139,7 +139,7 @@ back in their list.
 Rationale:
 The person chose to go there, so it should behave like any conversation they are using.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### EVENT-TAP-003: Links the app cannot open are shown as inactive
 `req~EVENT-TAP-003~1`
@@ -169,7 +169,7 @@ brought up to date.
 Rationale:
 During an event people open Connect to find their next session, often on poor venue Wi-Fi.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### EVENT-REFRESH-002: A failed update never empties the events
 `req~EVENT-REFRESH-002~1`
@@ -183,7 +183,7 @@ If Connect cannot get the latest events, it keeps showing the ones it has.
 Rationale:
 Losing the event links because of a network blip would strand people at the event.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### EVENT-REFRESH-003: Changes to an event show within 15 minutes
 `req~EVENT-REFRESH-003~1`
@@ -197,4 +197,4 @@ Changes organisers make to an event reach people within 15 minutes.
 Rationale:
 Plans change during events, and people need the current links the same morning.
 
-Needs: ccl
+Needs: ccl, ios, macos, web

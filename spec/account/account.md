@@ -95,7 +95,7 @@ their settings as they left them.
 Rationale:
 Signing in every time is the fastest way to make people stop opening an app.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### ACCOUNT-SESSION-002: Ending a session elsewhere signs the device out
 `req~ACCOUNT-SESSION-002~1`
@@ -127,7 +127,7 @@ company. Only an ended session or their own sign-out does it.
 Rationale:
 Being refused one feature is normal for some companies. Signing everyone there out would make Connect unusable for the whole company.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### ACCOUNT-SIGNOUT-001: Signing out works without a connection
 `req~ACCOUNT-SIGNOUT-001~1`
@@ -142,7 +142,7 @@ reached.
 Rationale:
 The person asked to sign out. Refusing because the network is down leaves their account open on a device they may be handing over.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### ACCOUNT-SIGNOUT-002: Signing out leaves nothing behind
 `req~ACCOUNT-SIGNOUT-002~1`
@@ -157,7 +157,7 @@ unsent messages, badges, directory, corporate events and appointment details.
 Rationale:
 Devices are shared and handed on. The next person must never see the previous person's conversations or customers' details.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### ACCOUNT-DEVICE-001: People can be signed in on several devices
 `req~ACCOUNT-DEVICE-001~1`
@@ -172,7 +172,7 @@ conversations.
 Rationale:
 People move between phone and computer all day.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### ACCOUNT-DEVICE-002: One account at a time in each app
 `req~ACCOUNT-DEVICE-002~1`

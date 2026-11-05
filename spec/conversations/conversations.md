@@ -116,7 +116,7 @@ conversations they have left.
 Rationale:
 The list is "where I talk". Anything else is clutter.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-LIST-006: The list appears straight away
 `req~CONV-LIST-006~1`
@@ -131,7 +131,7 @@ away, then brings it up to date.
 Rationale:
 People open Connect to do one quick thing. A blank list while it loads stops them doing it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-LIST-007: Unread conversations are bold
 `req~CONV-LIST-007~1`
@@ -162,7 +162,7 @@ as messages arrive, without opening it.
 Rationale:
 A count that climbs or is wrong teaches people to ignore counts.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### CONV-LIST-009: Unread counts only go down by reading
 `req~CONV-LIST-009~1`
@@ -177,7 +177,7 @@ device.
 Rationale:
 A count that drops on its own hides messages the person has not seen.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-NAME-001: Group Direct conversations are named after their members
 `req~CONV-NAME-001~1`
@@ -205,7 +205,7 @@ A Direct conversation is named after the other person's full name.
 Rationale:
 You are talking to Ana. That is what the conversation is.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-NAME-003: Direct and Group conversations cannot be renamed
 `req~CONV-NAME-003~1`
@@ -220,7 +220,7 @@ can be changed.
 Rationale:
 Their members are their name. A custom name would hide who is in them.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-NAME-004: Pictures come from the company directory
 `req~CONV-NAME-004~1`
@@ -296,7 +296,7 @@ switches the sort to Custom by itself.
 Rationale:
 Switching a person's sort without asking would throw away the order they chose.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-ORDER-003: New conversations go to the top of their section
 `req~CONV-ORDER-003~1`
@@ -311,7 +311,7 @@ section, alphabetically, above the ones they arranged.
 Rationale:
 Something new should be easy to spot, and easy to drag into place.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-ORDER-004: A conversation that comes back starts unplaced
 `req~CONV-ORDER-004~1`
@@ -326,7 +326,7 @@ place and goes to the top of its section, on every device.
 Rationale:
 Its old place belonged to a different section or a different time. The top is where the person will notice it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-ORDER-005: Dragging never overwrites another device's order
 `req~CONV-ORDER-005~1`
@@ -340,7 +340,7 @@ Rearranging on one device never undoes a newer arrangement made on another.
 Rationale:
 Losing an arrangement because two devices disagreed is a quiet way to lose work.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-001: Hiding takes a conversation out of the list
 `req~CONV-HIDE-001~1`
@@ -371,7 +371,7 @@ notify the person under that conversation's notification level.
 Rationale:
 Hiding means "I don't need this now", not "never tell me". Something addressed to the person brings it back.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-003: A muted hidden conversation stays hidden
 `req~CONV-HIDE-003~1`
@@ -385,7 +385,7 @@ A hidden conversation that is muted stays hidden whatever arrives in it.
 Rationale:
 Muted and hidden together means the person wants nothing from it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-004: Posting in a hidden conversation brings it back
 `req~CONV-HIDE-004~1`
@@ -400,7 +400,7 @@ device.
 Rationale:
 The person is using it again.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-005: Messages missed while closed still bring it back
 `req~CONV-HIDE-005~1`
@@ -415,7 +415,7 @@ conversation back the next time Connect opens.
 Rationale:
 Whether the phone was on should not decide whether the person finds out.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-006: Edits do not bring a hidden conversation back
 `req~CONV-HIDE-006~1`
@@ -429,7 +429,7 @@ Edits to old messages never bring a hidden conversation back.
 Rationale:
 An edit is not something new for the person.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-HIDE-007: Hidden conversations cannot be favorites
 `req~CONV-HIDE-007~1`
@@ -443,7 +443,7 @@ A hidden conversation cannot be favorited.
 Rationale:
 Favorite means "keep this at the top", hidden means "keep this out of the way". It cannot be both.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-DIRECT-001: There is one Direct conversation per pair of people
 `req~CONV-DIRECT-001~1`
@@ -458,7 +458,7 @@ existing conversation. It does not create a second one.
 Rationale:
 Two conversations with the same person split the history, and people lose track of where something was said.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### CONV-DIRECT-002: No new conversations with switched-off accounts
 `req~CONV-DIRECT-002~1`
@@ -492,7 +492,7 @@ and puts it back in your list.
 Rationale:
 Starting a conversation means the person wants to see it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-GROUP-001: Anyone in a Group conversation can add people
 `req~CONV-GROUP-001~1`
@@ -506,7 +506,7 @@ Every member of a Group conversation can add more people to it.
 Rationale:
 A Group conversation is a group of equals. Nobody owns it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-GROUP-002: A Group conversation has up to 11 people
 `req~CONV-GROUP-002~1`
@@ -534,7 +534,7 @@ reminders, in their list.
 Rationale:
 People use it as a scratch pad, and to send themselves things between devices.
 
-Needs: server, ccl
+Needs: server, ccl, ios, macos, web
 
 ### CONV-JOIN-001: Joining puts a conversation in your list
 `req~CONV-JOIN-001~1`
@@ -548,7 +548,7 @@ Joining a public Room puts it in the person's list.
 Rationale:
 Joining is how people say they want to follow a conversation.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-JOIN-002: People added to a conversation are in it straight away
 `req~CONV-JOIN-002~1`
@@ -563,7 +563,7 @@ mentioned, is in it straight away. There is nothing to accept.
 Rationale:
 Who belongs in a conversation is decided for the person, by the company or by its admins. Asking them to accept would only leave people out by accident.
 
-Needs: server, ccl
+Needs: server, ccl, ios, macos, web
 
 ### CONV-LEAVE-001: People can leave public Rooms
 `req~CONV-LEAVE-001~1`
@@ -578,7 +578,7 @@ conversation or a Group conversation.
 Rationale:
 A public Room can be joined again at any time. Who is in a private Room is decided by its admins and audience, and a Direct or Group conversation is defined by who is in it.
 
-Needs: server, ccl
+Needs: server, ccl, ios, macos, web
 
 ### CONV-LEAVE-002: The only admin cannot leave
 `req~CONV-LEAVE-002~1`
@@ -610,7 +610,7 @@ results include conversations they are already in, even hidden ones.
 Rationale:
 People look for a conversation by what it is about, whether or not they are already in it.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### CONV-PREVIEW-001: Public Rooms can be read before joining
 `req~CONV-PREVIEW-001~1`
@@ -626,7 +626,7 @@ joining. They cannot post, react or appear as a reader until they join.
 Rationale:
 People decide whether to join by seeing what a conversation is like.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-PREVIEW-002: A preview shows who is in the conversation
 `req~CONV-PREVIEW-002~1`
@@ -641,7 +641,7 @@ are.
 Rationale:
 Who is in a conversation says a lot about what it is for.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-EDIT-001: Conversation names are up to 80 characters
 `req~CONV-EDIT-001~1`
@@ -656,7 +656,7 @@ characters.
 Rationale:
 Names are read in lists and headers. A long name gets cut off and stops being useful.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-EDIT-002: Descriptions are up to 100 characters
 `req~CONV-EDIT-002~1`
@@ -671,7 +671,7 @@ empty removes it.
 Rationale:
 A description is a one-line summary of what the conversation is for.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-EDIT-003: Only admins change a conversation's name and description
 `req~CONV-EDIT-003~1`
@@ -700,7 +700,7 @@ made public.
 Rationale:
 People wrote in a private Room expecting only its members to read it. Making it public would expose that.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-EDIT-005: A conversation is private until known to be public
 `req~CONV-EDIT-005~1`
@@ -713,7 +713,7 @@ If Connect cannot tell whether a conversation is public, it treats it as private
 Rationale:
 Wrongly showing a conversation as private is harmless. Wrongly showing it as public could lead people to share it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### CONV-ADD-001: Only Room admins add people directly
 `req~CONV-ADD-001~1`

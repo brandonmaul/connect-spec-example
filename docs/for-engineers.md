@@ -112,8 +112,42 @@ areas are easier to find your way around.
 
 ## Needs
 
-`Needs` values are OFT artifact types, one per place that must prove the rule:
-`ccl`, `server`, `nitro`, `nitroid`, `ios`, `macos`, `web`.
+`Needs` values are OFT artifact types, one per place that must prove the rule.
+They are written in this order: `nitro`, `nitroid`, `server`, `ccl`, `ios`,
+`macos`, `web`.
+
+They fall into two groups, and the README gives each group a different owner:
+
+| Group | Types | Who writes them | Answers |
+|---|---|---|---|
+| Apps | `ios`, `macos`, `web` | Product, when writing the rule | Where does a person see this? |
+| Systems | `nitro`, `nitroid`, `server`, `ccl` | Engineering, in review | What has to work for it to happen? |
+
+Product proposals often arrive with only the apps. Adding the systems is part of
+reviewing the pull request.
+
+### The CCL is a layer, not a platform
+
+The CCL is built into the apps, so `ccl` never replaces an app in `Needs`. It is
+added alongside them:
+
+- **A rule a person can see names its apps**, whatever builds it underneath. The
+  validation check rejects `ccl` without at least one app.
+- **Add `ccl` when the CCL decides the outcome**: what is stored or cleared, order,
+  retries, read state, what counts as unread. Leave it out when the CCL only passes
+  data through and the app decides what to show.
+- **Both are proved.** CCL tests fake the apps, and app tests fake the CCL. Signing
+  out can clear everything in the CCL while an app still shows the old screen, so
+  `ccl` proves the decision and each app proves the person sees it.
+
+`Needs: ccl, ios, macos, web` does not say how each app gets the behavior, only
+that each must have it. Today connect-web does not use the CCL, so it meets these
+rules with its own code. When the web moves onto the CCL, those rules stay as they
+are. What changes is how the `web` tests prove them, and many become checks that
+the web shows what the CCL decided. The rules with both `ccl` and `web` are the
+behavior the move must keep, so their `web` coverage tracks the move's progress.
+
+### Every hop
 
 - List **every system a rule passes through**, not only where it starts and ends.
   Each repo's tests fake their neighbours, so a hop left out of `Needs` can break

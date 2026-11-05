@@ -80,20 +80,31 @@ devices it is for.
 
 ## Words you will see
 
-**Needs** lists which parts of Connect must follow the rule:
+**Needs** lists which parts of Connect must follow the rule. It has two halves.
+
+**Where people see it. You choose these.**
 
 | Word | Means |
 |---|---|
 | `ios` | Connect on iPhone and iPad |
 | `macos` | Connect on Mac |
 | `web` | Connect in the browser, and on Android |
-| `ccl` | The shared engine inside every Connect app. A rule here is built and tested once, and every app gets it. |
+
+A rule that only makes sense on iPhone says `ios`. A rule for every app says
+`ios, macos, web`. Any rule a person can see on screen names at least one of these.
+
+**What makes it work. Engineering adds these, so leave them out.**
+
+| Word | Means |
+|---|---|
+| `ccl` | The shared engine built into the Connect apps. It is part of the apps, never instead of them. |
 | `server` | Connect V3's back end |
 | `nitro` | Connect V2, and Nitro itself (people, roles, permissions) |
 | `nitroid` | Nitro ID, which passes people and groups from Nitro to Connect V3 |
 
-So a rule that only makes sense on iPhone says `Needs: ios`. A rule every app shares
-says `Needs: ios, macos, web`.
+Some rules are only about what happens behind the scenes, like a change in V2
+showing up in V3. Those have only words from this second table. The words are
+always written in the order of the two tables, ending with the apps.
 
 Other names you will see in rules:
 
@@ -126,7 +137,7 @@ to approve it.
 2. Find the rules most like yours, copy one, and paste it after the last of them.
 3. Give it the next number, in **both** places: the heading and the stamp under it.
    The stamp ends in `~1`.
-4. Fill in the rule, the example, the rationale and who it is for.
+4. Fill in the rule, the example, the rationale, and in `Needs` the apps it is for.
 5. Click **Commit changes**, choose **Create a new branch and start a pull request**,
    and describe the change. Someone from engineering will review it and sort out the
    ID if needed.
@@ -144,7 +155,7 @@ old version need to look at it again?**
   changed and why. This tells every team their tests need to be checked against the
   new behavior.
 - **No, it is just clearer wording.** Leave the number alone.
-- **Only who it is for has changed.** Edit `Needs` and leave the number alone.
+- **Only where it applies has changed.** Edit `Needs` and leave the number alone.
 
 To stop a rule applying, set `Status: rejected` and explain why in the rationale.
 Never delete a rule.

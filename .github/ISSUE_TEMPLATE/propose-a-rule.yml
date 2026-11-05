@@ -31,13 +31,13 @@ body:
   - type: checkboxes
     id: where
     attributes:
-      label: Where does it apply?
+      label: Where do people see it?
+      description: Tick the apps. Engineering works out which systems behind them are involved.
       options:
         - label: iPhone and iPad
         - label: Mac
         - label: Browser and Android
-        - label: Connect V2 (Nitro)
-        - label: Who has Connect, sign-in or profiles (Nitro ID)
+        - label: Nowhere on screen, it happens behind the scenes
         - label: Not sure, let engineering decide
   - type: textarea
     id: links

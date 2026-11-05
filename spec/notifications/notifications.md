@@ -59,7 +59,7 @@ If a message mentions the same person more than once, they get one notification.
 Rationale:
 Repeating a name is emphasis, not a request to buzz someone twice.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### NOTIFY-TEXT-001: A notification shows who wrote what, and where
 `req~NOTIFY-TEXT-001~1`
@@ -107,7 +107,7 @@ newest messages. Seeing it there does not by itself mark the conversation read.
 Rationale:
 The notification was about that message, so that is what the person expects to see first.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### NOTIFY-TAP-002: A notification for a deleted message opens the conversation
 `req~NOTIFY-TAP-002~1`
@@ -123,7 +123,7 @@ conversation at its newest messages.
 Rationale:
 Showing an error for something the person cannot fix is worse than showing them the conversation.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### NOTIFY-TAP-003: Clicking a notification brings that conversation forward
 `req~NOTIFY-TAP-003~1`
@@ -186,7 +186,7 @@ sent later without the person knowing.
 Rationale:
 A message that turns up hours later, out of context, can do more harm than one that never arrived.
 
-Needs: ccl
+Needs: ccl, ios, macos
 
 ### NOTIFY-REPLY-002: A reply that fails from a notification shows in the conversation
 `req~NOTIFY-REPLY-002~1`
@@ -202,7 +202,7 @@ with Retry, unless the person was not allowed to post there or was signed out.
 Rationale:
 The person thinks they replied. They must be able to find out it did not go, and send it when they choose.
 
-Needs: ccl
+Needs: ccl, ios, macos
 
 ### NOTIFY-REPLY-003: Reacting from a notification always adds the reaction
 `req~NOTIFY-REPLY-003~1`
@@ -217,7 +217,7 @@ removes one already there.
 Rationale:
 From a notification the person cannot see what they already did, so a reaction there can only mean "add".
 
-Needs: ccl
+Needs: ccl, ios, macos
 
 ### NOTIFY-DEVICE-001: Turning notifications off or signing out stops them
 `req~NOTIFY-DEVICE-001~1`

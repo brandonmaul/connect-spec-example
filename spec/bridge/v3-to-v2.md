@@ -31,7 +31,7 @@ conversation, from the same person. Text, GIFs and attachments all carry over.
 Rationale:
 People moving to V3 must still reach everyone on V2. Otherwise moving to V3 means dropping out of the conversation.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-MSG-002: Edits in V3 appear in V2
 `req~V3V2-MSG-002~1`
@@ -45,7 +45,7 @@ Editing a message in Connect V3 updates the same message in V2.
 Rationale:
 An edit usually fixes something wrong. V2 readers must not keep seeing the version that was corrected.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-MSG-003: Deletes in V3 remove the message in V2
 `req~V3V2-MSG-003~1`
@@ -59,7 +59,7 @@ Deleting a message in Connect V3 removes it from V2.
 Rationale:
 A deleted message is usually one that should never have been sent. It must disappear everywhere.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-MSG-004: Bridged messages appear once
 `req~V3V2-MSG-004~1`
@@ -73,7 +73,7 @@ A message that started in V3 and was copied to V2 is not copied back into V3.
 Rationale:
 Copying it back would show every message twice, or loop forever.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-REACT-001: Reactions in V3 appear in V2
 `req~V3V2-REACT-001~1`
@@ -89,7 +89,7 @@ Adding or removing a reaction in Connect V3 does the same in V2. A 👍 in V3 is
 Rationale:
 Reactions are often the whole reply ("seen it", "agreed"). Losing them loses the answer.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-READ-001: Reading in V3 clears unread in V2
 `req~V3V2-READ-001~1`
@@ -104,7 +104,7 @@ them in V2.
 Rationale:
 Reading something once should be enough. Badges that come back in the other version train people to ignore badges.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### V3V2-ARCHIVE-001: Archiving in V3 archives in V2
 `req~V3V2-ARCHIVE-001~1`
@@ -119,4 +119,4 @@ including conversations archived automatically for having no messages.
 Rationale:
 A conversation that is closed in one version and open in the other splits the conversation.
 
-Needs: server, nitro
+Needs: nitro, server

@@ -64,7 +64,7 @@ with only titles covers those titles everywhere.
 Rationale:
 An empty rule has no clear meaning, and a mistake would put the whole company in the conversation.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### AUD-RULE-004: Only Rooms have audiences
 `req~AUD-RULE-004~1`
@@ -78,7 +78,7 @@ their screens offer none.
 Rationale:
 A Direct or Group conversation is defined by who is in it. An audience would change what it is.
 
-Needs: ccl, server, ios, macos, web
+Needs: server, ccl, ios, macos, web
 
 ### AUD-RULE-005: An audience can be the whole company
 `req~AUD-RULE-005~1`
@@ -188,7 +188,7 @@ name.
 Rationale:
 People added by name were added on purpose. Editing the rules should not quietly undo that.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### AUD-EDIT-003: The conversation keeps at least one admin
 `req~AUD-EDIT-003~1`
@@ -219,7 +219,7 @@ listed: territories oldest market first, departments and titles alphabetically.
 Rationale:
 Admins think of markets in the order Power opened them. Leaving any out would make some audiences impossible to build.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### AUD-EDIT-005: Audience changes in V3 reach Connect V2
 `req~AUD-EDIT-005~1`
@@ -233,7 +233,7 @@ A change to a conversation's audience made in Connect V3 is the same in Connect 
 Rationale:
 While both versions run, a conversation has one audience, wherever it was changed.
 
-Needs: server, nitro
+Needs: nitro, server
 
 ### AUD-REACH-001: An audience shows how many people it covers
 `req~AUD-REACH-001~1`

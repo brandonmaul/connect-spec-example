@@ -67,7 +67,7 @@ text is not empty.
 Rationale:
 Prevents accidental blank messages.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-SEND-004: Messages sent offline go when the connection returns
 `req~MSG-SEND-004~1`
@@ -82,7 +82,7 @@ connection returns, even if Connect was closed in between.
 Rationale:
 People write when they have a moment, not when they have signal.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-SEND-005: Text goes ahead of an upload
 `req~MSG-SEND-005~1`
@@ -98,7 +98,7 @@ away, ahead of the attachment.
 Rationale:
 A short message should never wait behind a large upload.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-SEND-006: Only broadcasters post in a broadcast conversation
 `req~MSG-SEND-006~1`
@@ -114,7 +114,7 @@ composer is off.
 Rationale:
 Broadcast conversations are for announcements to large audiences. Offering a composer that cannot send would only frustrate people.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### MSG-SEND-007: No sending to a conversation you have left
 `req~MSG-SEND-007~1`
@@ -129,7 +129,7 @@ from.
 Rationale:
 Being out of a conversation must mean being out of it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-SEND-008: The composer waits until Connect knows you can post
 `req~MSG-SEND-008~1`
@@ -223,7 +223,7 @@ show as failed too, instead of waiting forever.
 Rationale:
 A message that spins forever is worse than one that clearly failed.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-FAIL-002: Each failed message is retried on its own
 `req~MSG-FAIL-002~1`
@@ -239,7 +239,7 @@ others.
 Rationale:
 The person may no longer want to send all of them. Each one is their choice.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-FAIL-003: A retried message is sent as a new message
 `req~MSG-FAIL-003~1`
@@ -254,7 +254,7 @@ it was actually sent.
 Rationale:
 The conversation has moved on. Slotting it back at 9:00 would hide it where nobody looks.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-FAIL-004: Failed messages are shown at the end
 `req~MSG-FAIL-004~1`
@@ -268,7 +268,7 @@ Failed messages are shown after all delivered messages, oldest first.
 Rationale:
 Failed messages need the person's attention, so they stay where the person is looking.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-FAIL-005: The conversation list flags failed messages
 `req~MSG-FAIL-005~1`
@@ -313,7 +313,7 @@ is restarted.
 Rationale:
 What the person wrote is theirs. A restart must not throw it away.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-FAIL-008: A failed send says why
 `req~MSG-FAIL-008~1`
@@ -344,7 +344,7 @@ delete is not retried; the person does it again.
 Rationale:
 An edit, reaction or delete is quick to redo, and holding failed ones for later adds clutter for little gain.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-EDIT-001: Edited messages are marked as edited
 `req~MSG-EDIT-001~1`
@@ -374,7 +374,7 @@ Edits in a row are noted on one line.
 Rationale:
 An edit to an old message is easy to miss. The note tells people to look.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-EDIT-003: Only sent messages can be edited
 `req~MSG-EDIT-003~1`
@@ -388,7 +388,7 @@ A message can only be edited once it has been sent, not while it is still sendin
 Rationale:
 Editing something that has not arrived yet would leave people seeing two different versions.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-EDIT-004: Editing notifies only people newly mentioned
 `req~MSG-EDIT-004~1`
@@ -404,7 +404,7 @@ mentioned.
 Rationale:
 Alice already knows. Bob was just asked for.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-EDIT-005: Only the sender can edit, at any time
 `req~MSG-EDIT-005~1`
@@ -418,7 +418,7 @@ Only the person who sent a message can edit it, and there is no time limit.
 Rationale:
 A message is the sender's words. Nobody else should be able to change them.
 
-Needs: server, ccl
+Needs: server, ccl, ios, macos, web
 
 ### MSG-DELETE-001: Deleted messages disappear
 `req~MSG-DELETE-001~1`
@@ -433,7 +433,7 @@ deleted" placeholder.
 Rationale:
 A deleted message is usually one that should not have been sent. A placeholder still draws attention to it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-DELETE-002: Deleting works offline
 `req~MSG-DELETE-002~1`
@@ -447,7 +447,7 @@ Deleting a message without a connection takes effect when the connection returns
 Rationale:
 Someone who deletes a message wants it gone, and should not have to remember to do it again.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-REACT-001: Reactions are tapped on and off
 `req~MSG-REACT-001~1`
@@ -477,7 +477,7 @@ Reacting to a message does not mark the conversation as read.
 Rationale:
 Reacting to one message is not reading the rest.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-MENTION-001: Only the people picked are mentioned
 `req~MSG-MENTION-001~1`
@@ -506,7 +506,7 @@ If something is wrong with a mention in a message, the message is still sent.
 Rationale:
 One bad mention must never cost someone their whole message.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-ATTACH-001: Uploads show their progress
 `req~MSG-ATTACH-001~1`
@@ -537,7 +537,7 @@ without picking it again, even after a restart.
 Rationale:
 Finding the file again is a chore, and on a phone it may no longer be at hand.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-ATTACH-003: A cancelled upload disappears straight away
 `req~MSG-ATTACH-003~1`
@@ -551,7 +551,7 @@ Cancelling an upload removes it from the conversation at once.
 Rationale:
 Cancel means "I didn't mean that". It should feel instant.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-ATTACH-004: A caption belongs to its photo or file
 `req~MSG-ATTACH-004~1`
@@ -565,7 +565,7 @@ message.
 Rationale:
 Split apart, a caption can end up next to the wrong photo.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-ATTACH-005: GIFs show where they came from
 `req~MSG-ATTACH-005~1`
@@ -579,7 +579,7 @@ A GIF is shown with a link to the page it came from.
 Rationale:
 The GIF service asks for this, and it lets people find the original.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-ATTACH-006: Files up to 150 MB, of any type
 `req~MSG-ATTACH-006~1`
@@ -624,7 +624,7 @@ or shown on the person's other devices.
 Rationale:
 Something a person has not sent is not shared yet, not even with Connect.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-DRAFT-003: Sending or clearing the text removes the draft
 `req~MSG-DRAFT-003~1`
@@ -654,7 +654,7 @@ When everything is read, there is none.
 Rationale:
 It decides where a conversation opens, so every device must agree on it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-READ-002: Reading clears unread everywhere
 `req~MSG-READ-002~1`
@@ -669,7 +669,7 @@ device the user is signed in on.
 Rationale:
 An unread badge that survives reading is the most reported annoyance in a chat product.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### MSG-READ-003: Opens at the unread marker
 `req~MSG-READ-003~1`
@@ -731,7 +731,7 @@ Reacting, editing, deleting or scrolling do not.
 Rationale:
 Unread means "there is something you have not seen". Other actions do not change that.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-READ-007: Posting does not clear the unread count
 `req~MSG-READ-007~1`
@@ -746,7 +746,7 @@ does.
 Rationale:
 Replying to the latest message does not mean the person saw the 57 before it.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### MSG-READ-008: People can mark a conversation read or unread
 `req~MSG-READ-008~1`

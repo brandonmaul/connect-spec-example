@@ -46,7 +46,7 @@ messages.
 Rationale:
 In conversations with audiences, people come and go constantly. Showing it would drown the messages.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-SHOW-003: Making a Room public or private is noted
 `req~TIMELINE-SHOW-003~1`
@@ -62,7 +62,7 @@ public.
 Rationale:
 Who can read a Room changes what people should say in it. Everyone needs to see when that changes.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-SHOW-004: Connect's own automatic accounts never appear
 `req~TIMELINE-SHOW-004~1`
@@ -77,7 +77,7 @@ reactions, members or search. Bots people talk to do appear, marked as bots.
 Rationale:
 Behind-the-scenes accounts are not people. Showing them confuses everyone.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-SHOW-005: Messages in a row from one person are grouped
 `req~TIMELINE-SHOW-005~1`
@@ -105,7 +105,7 @@ A message appears exactly once in a conversation.
 Rationale:
 A duplicate looks like someone sent it twice, and people answer it twice.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-SHOW-007: Senders are always named
 `req~TIMELINE-SHOW-007~1`
@@ -119,7 +119,7 @@ Every message shows its sender's name, including people who have since left.
 Rationale:
 A message from a code instead of a name is useless as a record.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-OPEN-001: A conversation opens fresh every time
 `req~TIMELINE-OPEN-001~1`
@@ -135,7 +135,7 @@ looked like last time.
 Rationale:
 Showing the last visit for a moment and then jumping makes people lose their place.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-OPEN-002: New messages are there on returning to the latest
 `req~TIMELINE-OPEN-002~1`
@@ -150,7 +150,7 @@ they go back to the latest messages.
 Rationale:
 Going back to the latest should be instant.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-OPEN-003: A way back to the latest messages
 `req~TIMELINE-OPEN-003~1`
@@ -179,7 +179,7 @@ conversation list.
 Rationale:
 Opening a conversation means the person wants it again.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-OPEN-005: A public Room you cannot read asks you to join
 `req~TIMELINE-OPEN-005~1`
@@ -209,7 +209,7 @@ they reach the newest message. It goes once the conversation is marked read.
 Rationale:
 A divider that vanishes as you reach it makes it hard to find your place again.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-DIVIDER-002: Your own reply moves the divider
 `req~TIMELINE-DIVIDER-002~1`
@@ -225,7 +225,7 @@ own latest message.
 Rationale:
 Posting is reading. Dana obviously saw what she was replying to.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-DIVIDER-003: A divider marks messages that arrive while you watch
 `req~TIMELINE-DIVIDER-003~1`
@@ -240,7 +240,7 @@ divider marks where the new messages start.
 Rationale:
 People glance away and back. The divider shows them what came in.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-SEEN-001: Everyone can see how far each member has read
 `req~TIMELINE-SEEN-001~1`
@@ -269,7 +269,7 @@ it, its current text, when, and whether it was edited.
 Rationale:
 The message people search for is usually an old one.
 
-Needs: ccl, server
+Needs: server, ccl, ios, macos, web
 
 ### TIMELINE-SEARCH-002: Search results can be sorted newest or oldest first
 `req~TIMELINE-SEARCH-002~1`
@@ -327,7 +327,7 @@ the pinned messages, except for the person who pinned it.
 Rationale:
 A pin is meant to be seen. The person who pinned it already has.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-PIN-003: Pinned messages are newest pin first
 `req~TIMELINE-PIN-003~1`
@@ -341,7 +341,7 @@ Pinned messages are listed with the most recently pinned first.
 Rationale:
 The newest pin is usually the most relevant one.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-PIN-004: Pinned messages can be reacted to
 `req~TIMELINE-PIN-004~1`
@@ -356,7 +356,7 @@ back in the conversation.
 Rationale:
 Pins are often announcements. Reacting is how people say they have seen them.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### TIMELINE-LINK-001: Links open without leaving Connect
 `req~TIMELINE-LINK-001~1`

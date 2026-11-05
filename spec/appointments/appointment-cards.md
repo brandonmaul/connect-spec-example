@@ -27,7 +27,7 @@ appointment's card under the message.
 Rationale:
 Talking about a specific appointment is constant at Power. The card saves everyone looking it up in Nitro.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-TAG-002: How an appointment tag is written
 `req~APPT-TAG-002~1`
@@ -43,7 +43,7 @@ text, a space breaks it, and its number is the digits only.
 Rationale:
 People type tags quickly and sloppily. The rule has to be simple and predictable.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-TAG-003: Each appointment gets one card
 `req~APPT-TAG-003~1`
@@ -58,7 +58,7 @@ however many times it is mentioned.
 Rationale:
 Repeated cards add nothing and push the conversation off the screen.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-TAG-004: A bare link gets no card
 `req~APPT-TAG-004~1`
@@ -73,7 +73,7 @@ contains something that looks like a tag.
 Rationale:
 Links are full of `#` signs. A pasted link is not someone talking about an appointment.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-CARD-001: A message of only tags shows only the cards
 `req~APPT-CARD-001~1`
@@ -122,7 +122,7 @@ the rest of the card from showing.
 Rationale:
 A partial card is still useful. A broken one is not.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-CARD-004: An unknown appointment says so on its card
 `req~APPT-CARD-004~1`
@@ -168,7 +168,7 @@ effect at once. Offline, it shows the last details the device saw.
 Rationale:
 Access to customer details has to stop when it is taken away, not whenever the device next tidies up.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
 
 ### APPT-ACCESS-003: No appointment cards at Stream Financial
 `req~APPT-ACCESS-003~1`
@@ -183,4 +183,4 @@ their messages causes no error.
 Rationale:
 Stream Financial has no appointments in Nitro.
 
-Needs: ccl
+Needs: ccl, ios, macos, web
