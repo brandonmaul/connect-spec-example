@@ -38,28 +38,11 @@ Three things never change, so links to a rule keep working:
 
 ## Areas and topics
 
-Each area is one file. Its code and topics are declared at the top of the file, and
-every rule in the file uses that area code and one of those topics.
-
-| Area | Code | Topics |
-|---|---|---|
-| [Membership](../spec/membership/connect-access.md) | `MEMBERSHIP` | `SOURCE` `ACCESS` `PROFILE` `LEAVE` `RETURN` |
-| [Account](../spec/account/account.md) | `ACCOUNT` | `SIGNIN` `SESSION` `SIGNOUT` `DEVICE` `PRIVACY` |
-| [Settings](../spec/settings/settings.md) | `SETTING` | `SORT` `DENSITY` `SYNC` |
-| [Conversations](../spec/conversations/conversations.md) | `CONV` | `LIST` `NAME` `SECTION` `ORDER` `HIDE` `JOIN` `LEAVE` `BROWSE` `PREVIEW` `EDIT` `ADD` `MENTION` `ARCHIVE` `DELETE` |
-| [Inside a conversation](../spec/conversations/conversation-view.md) | `VIEW` | `SHOW` `OPEN` `DIVIDER` `SEEN` `SEARCH` `PIN` `LINK` |
-| [Direct and Group conversations](../spec/conversations/direct-and-group.md) | `DM` | `START` `SIZE` `SELF` |
-| [Messages](../spec/messaging/messages.md) | `MSG` | `SEND` `COMPOSE` `FAIL` `EDIT` `DELETE` `REACT` `MENTION` `ATTACH` `DRAFT` `READ` `RETAIN` |
-| [Notifications](../spec/notifications/notifications.md) | `NOTIFY` | `LEVEL` `TEXT` `TAP` `REPLY` `DEVICE` |
-| [People](../spec/people/people.md) | `PEOPLE` | `DIRECTORY` `PROFILE` `STATUS` `MEMBERS` `ADMIN` |
-| [Audiences](../spec/audiences/conversation-members.md) | `AUD` | `RULE` `MEMBER` `EDIT` `REACH` `REMOVE` |
-| [Corporate events](../spec/events/corporate-events.md) | `EVENT` | `SHOW` `ORDER` `TAP` `REFRESH` |
-| [Appointment cards](../spec/appointments/appointment-cards.md) | `APPT` | `TAG` `CARD` `ACCESS` |
-| [V2 to V3 bridge](../spec/bridge/v2-to-v3.md) | `V2V3` | `MSG` `REACT` `READ` `DM` `PUBLIC` `AUD` `MENTION` `ARCHIVE` |
-| [V3 to V2 bridge](../spec/bridge/v3-to-v2.md) | `V3V2` | `MSG` `REACT` `READ` `ARCHIVE` |
-| [Sharing into Connect](../spec/sharing/sharing-into-connect.md) | `SHARE` | `SHEET` `PICK` `LINK` `FILE` `FAIL` |
-| [Voice assistants](../spec/voice/voice-assistants.md) | `VOICE` | `SEND` |
-| [The Connect app](../spec/app/connect-app.md) | `APP` | `INSTALL` `ICON` `UPDATE` `OFFLINE` `LAYOUT` |
+The list of areas is in the README, under
+[Where the rules are](../README.md#where-the-rules-are). Each area is one file, and
+its code and topics are declared at the top of that file, so that is the only
+place to look them up. Every rule in the file uses that area code and one of those
+topics.
 
 The same topic word can appear in several areas when it means the same thing. For
 example, `ARCHIVE` is about archiving in Conversations and in both bridges.
@@ -88,12 +71,12 @@ Add a topic when a new rule is about a theme that none of the area's topics cove
 
 1. Check the topics at the top of the area's file. A new rule that fits an existing
    topic goes there, even if the topic is small.
-2. Look across the [other areas](#areas-and-topics). If one already uses a word for
-   the same idea, use the same word, so `ARCHIVE` always means archiving.
+2. Look at the topics in the other areas' files. If one already uses a word for the
+   same idea, use the same word, so `ARCHIVE` always means archiving.
 3. Choose one short word in capital letters, with no digits or dashes. Name the
    behavior, not a screen or feature name that might change: `READ`, not `BADGE`.
 4. Add the topic, with a one-line description, to the topics list at the top of the
-   area's file, and to the [table above](#areas-and-topics).
+   area's file.
 5. Its first rule is number `001`, for example `MSG-PIN-001`.
 
 ### Adding an area
@@ -106,12 +89,12 @@ areas are easier to find your way around.
    `V2V3`). It must not be used by any other area, now or in the past. Name the part
    of the product, not a team, project, release or device, because the code lasts as
    long as the rules do (see [behavior on only some devices](#behavior-on-only-some-devices)).
+   Check the top of every area's file to make sure the code is free.
 2. Copy [templates/new-area.md](../templates/new-area.md) into `spec/`, in the folder
    for that part of Connect, or a new folder if none fits.
 3. Fill in the area's name, what it covers and its first topics. Replace `AREA` and
    `TOPIC` in the example rule.
-4. Add it to the [table above](#areas-and-topics) and to the area list in the
-   [README](../README.md#where-the-rules-are).
+4. Add it to the area list in the [README](../README.md#where-the-rules-are).
 5. Open a pull request.
 
 ## Format rules

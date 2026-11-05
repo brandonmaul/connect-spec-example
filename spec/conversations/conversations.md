@@ -3,8 +3,7 @@
 Every conversation a person is in: how they are listed, how people are added by hand
 or by being mentioned, and what happens to a conversation at the end of its life.
 Who is in a Room because of its audience is covered in
-[Audiences](../audiences/conversation-members.md), and Direct and Group
-conversations in [Direct and Group conversations](direct-and-group.md).
+[Audiences](../audiences/conversation-members.md).
 
 There are four types of conversation:
 
@@ -26,6 +25,9 @@ There are four types of conversation:
 | `SECTION` | The sections of the conversation list |
 | `ORDER` | Arranging conversations in a custom order |
 | `HIDE` | Hiding conversations, and how they come back |
+| `DIRECT` | Direct conversations, and starting a Direct or Group conversation |
+| `GROUP` | Group conversations |
+| `SELF` | A person's Self-DM Room |
 | `JOIN` | Joining a conversation |
 | `LEAVE` | Leaving a conversation |
 | `BROWSE` | Finding public Rooms |
@@ -442,6 +444,97 @@ Rationale:
 Favorite means "keep this at the top", hidden means "keep this out of the way". It cannot be both.
 
 Needs: ccl
+
+### CONV-DIRECT-001: There is one Direct conversation per pair of people
+`req~CONV-DIRECT-001~1`
+
+Starting a Direct conversation with someone you already have one with opens the
+existing conversation. It does not create a second one.
+
+    Given Dana and Sam already have a Direct conversation
+    When Dana starts a new Direct conversation with Sam
+    Then Dana is taken to the conversation they already have
+
+Rationale:
+Two conversations with the same person split the history, and people lose track of where something was said.
+
+Needs: ccl, server
+
+### CONV-DIRECT-002: No new conversations with switched-off accounts
+`req~CONV-DIRECT-002~1`
+
+A Direct or Group conversation cannot be started with someone whose account has
+been switched off.
+
+    Given Sam has left the company and their account is switched off
+    When Dana tries to start a Direct conversation with Sam
+    Then no conversation is created
+
+Rationale:
+A message to someone who can no longer read it looks delivered but never will be.
+
+Comment:
+What Dana is shown is not specified yet.
+
+Needs: server
+
+### CONV-DIRECT-003: Starting a hidden conversation again brings it back
+`req~CONV-DIRECT-003~1`
+
+Starting a Direct or Group conversation that already exists but is hidden opens it
+and puts it back in your list.
+
+    Given Dana hid her Direct conversation with Sam
+    When she starts a new Direct conversation with Sam
+    Then the old one opens
+    And it is back in her list
+
+Rationale:
+Starting a conversation means the person wants to see it.
+
+Needs: ccl
+
+### CONV-GROUP-001: Anyone in a Group conversation can add people
+`req~CONV-GROUP-001~1`
+
+Every member of a Group conversation can add more people to it.
+
+    Given Dana, Sam and Ana have a Group conversation
+    When Ana adds Bob
+    Then Bob is in it
+
+Rationale:
+A Group conversation is a group of equals. Nobody owns it.
+
+Needs: ccl
+
+### CONV-GROUP-002: A Group conversation has up to 11 people
+`req~CONV-GROUP-002~1`
+
+A Group conversation has at most 11 people, including the person who starts it.
+
+    Given a person picks 11 others for a new Group conversation
+    Then it cannot be created
+    And they are told the limit is 10 others
+
+Rationale:
+Beyond that, it is a group that deserves a Room with an audience.
+
+Needs: server, ios, macos, web
+
+### CONV-SELF-001: Everyone has a Self-DM Room
+`req~CONV-SELF-001~1`
+
+Every person has a Self-DM Room, a conversation with only themselves, for notes and
+reminders, in their list.
+
+    Given a new person signs in for the first time
+    Then their list includes their Self-DM Room
+
+Rationale:
+People use it as a scratch pad, and to send themselves things between devices.
+
+Needs: server, ccl
 
 ### CONV-JOIN-001: Joining puts a conversation in your list
 `req~CONV-JOIN-001~1`

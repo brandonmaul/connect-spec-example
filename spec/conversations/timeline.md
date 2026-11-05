@@ -1,8 +1,8 @@
-# Inside a conversation
+# Timeline
 
-What a person sees with a conversation open: the messages, where it opens, the "new messages" divider, who has read what, search and pinned messages.
+The timeline is what a person sees with a conversation open: its messages, where it opens, the "new messages" divider, who has read what, search, pinned messages and links.
 
-**Area code:** `VIEW`
+**Area code:** `TIMELINE`
 
 **Topics**
 
@@ -18,8 +18,8 @@ What a person sees with a conversation open: the messages, where it opens, the "
 
 Design: <figma link> · Runway: <epic link>
 
-### VIEW-SHOW-001: Messages of every kind are shown
-`req~VIEW-SHOW-001~1`
+### TIMELINE-SHOW-001: Messages of every kind are shown
+`req~TIMELINE-SHOW-001~1`
 
 Text, photos, files, audio, video, GIFs, notices and "/me" actions are all shown.
 A kind Connect does not know is shown as its plain text, never hidden.
@@ -33,8 +33,8 @@ A message that silently vanishes is a message someone thinks was read.
 
 Needs: ccl, ios, macos, web
 
-### VIEW-SHOW-002: Joins, leaves and setting changes are not shown
-`req~VIEW-SHOW-002~1`
+### TIMELINE-SHOW-002: Joins, leaves and setting changes are not shown
+`req~TIMELINE-SHOW-002~1`
 
 People joining or leaving, and changes to settings, are not shown among the
 messages.
@@ -48,8 +48,8 @@ In conversations with audiences, people come and go constantly. Showing it would
 
 Needs: ccl
 
-### VIEW-SHOW-003: Making a Room public or private is noted
-`req~VIEW-SHOW-003~1`
+### TIMELINE-SHOW-003: Making a Room public or private is noted
+`req~TIMELINE-SHOW-003~1`
 
 When a Room is made public or private, including when it is created, a line among
 the messages says so, and who did it. Only Rooms show this, since only Rooms can be
@@ -64,8 +64,8 @@ Who can read a Room changes what people should say in it. Everyone needs to see 
 
 Needs: ccl
 
-### VIEW-SHOW-004: Connect's own automatic accounts never appear
-`req~VIEW-SHOW-004~1`
+### TIMELINE-SHOW-004: Connect's own automatic accounts never appear
+`req~TIMELINE-SHOW-004~1`
 
 Accounts Connect uses to run itself never appear anywhere: not in messages,
 reactions, members or search. Bots people talk to do appear, marked as bots.
@@ -79,8 +79,8 @@ Behind-the-scenes accounts are not people. Showing them confuses everyone.
 
 Needs: ccl
 
-### VIEW-SHOW-005: Messages in a row from one person are grouped
-`req~VIEW-SHOW-005~1`
+### TIMELINE-SHOW-005: Messages in a row from one person are grouped
+`req~TIMELINE-SHOW-005~1`
 
 Messages sent one after another by the same person can be grouped, with their name
 and picture shown once.
@@ -93,8 +93,8 @@ Repeating the same name on every line is noise.
 
 Needs: ccl, ios, macos, web
 
-### VIEW-SHOW-006: A message is never shown twice
-`req~VIEW-SHOW-006~1`
+### TIMELINE-SHOW-006: A message is never shown twice
+`req~TIMELINE-SHOW-006~1`
 
 A message appears exactly once in a conversation.
 
@@ -107,8 +107,8 @@ A duplicate looks like someone sent it twice, and people answer it twice.
 
 Needs: ccl
 
-### VIEW-SHOW-007: Senders are always named
-`req~VIEW-SHOW-007~1`
+### TIMELINE-SHOW-007: Senders are always named
+`req~TIMELINE-SHOW-007~1`
 
 Every message shows its sender's name, including people who have since left.
 
@@ -121,8 +121,8 @@ A message from a code instead of a name is useless as a record.
 
 Needs: ccl
 
-### VIEW-OPEN-001: A conversation opens fresh every time
-`req~VIEW-OPEN-001~1`
+### TIMELINE-OPEN-001: A conversation opens fresh every time
+`req~TIMELINE-OPEN-001~1`
 
 Every time a conversation is opened it shows its current state, never what it
 looked like last time.
@@ -137,8 +137,8 @@ Showing the last visit for a moment and then jumping makes people lose their pla
 
 Needs: ccl
 
-### VIEW-OPEN-002: New messages are there on returning to the latest
-`req~VIEW-OPEN-002~1`
+### TIMELINE-OPEN-002: New messages are there on returning to the latest
+`req~TIMELINE-OPEN-002~1`
 
 Messages that arrive while a person is reading older history are there as soon as
 they go back to the latest messages.
@@ -152,8 +152,8 @@ Going back to the latest should be instant.
 
 Needs: ccl
 
-### VIEW-OPEN-003: A way back to the latest messages
-`req~VIEW-OPEN-003~1`
+### TIMELINE-OPEN-003: A way back to the latest messages
+`req~TIMELINE-OPEN-003~1`
 
 While reading older messages, a person always has a way to jump back to the latest
 ones.
@@ -166,8 +166,8 @@ Scrolling back down through weeks of history is not a reasonable way back.
 
 Needs: ios, macos, web
 
-### VIEW-OPEN-004: Opening a hidden conversation brings it back
-`req~VIEW-OPEN-004~1`
+### TIMELINE-OPEN-004: Opening a hidden conversation brings it back
+`req~TIMELINE-OPEN-004~1`
 
 Opening a conversation the person has hidden, from anywhere, puts it back in their
 conversation list.
@@ -181,8 +181,8 @@ Opening a conversation means the person wants it again.
 
 Needs: ccl
 
-### VIEW-OPEN-005: A public Room you cannot read asks you to join
-`req~VIEW-OPEN-005~1`
+### TIMELINE-OPEN-005: A public Room you cannot read asks you to join
+`req~TIMELINE-OPEN-005~1`
 
 If a public Room cannot be read without joining, the person is asked to join
 instead of being shown an empty conversation.
@@ -196,8 +196,8 @@ An empty screen looks like an empty conversation.
 
 Needs: ios, macos, web
 
-### VIEW-DIVIDER-001: The divider stays while you read
-`req~VIEW-DIVIDER-001~1`
+### TIMELINE-DIVIDER-001: The divider stays while you read
+`req~TIMELINE-DIVIDER-001~1`
 
 The "new messages" divider stays where it is while the person reads, even once
 they reach the newest message. It goes once the conversation is marked read.
@@ -211,8 +211,8 @@ A divider that vanishes as you reach it makes it hard to find your place again.
 
 Needs: ccl
 
-### VIEW-DIVIDER-002: Your own reply moves the divider
-`req~VIEW-DIVIDER-002~1`
+### TIMELINE-DIVIDER-002: Your own reply moves the divider
+`req~TIMELINE-DIVIDER-002~1`
 
 If a person posted after the last message they read, the divider comes after their
 own latest message.
@@ -227,8 +227,8 @@ Posting is reading. Dana obviously saw what she was replying to.
 
 Needs: ccl
 
-### VIEW-DIVIDER-003: A divider marks messages that arrive while you watch
-`req~VIEW-DIVIDER-003~1`
+### TIMELINE-DIVIDER-003: A divider marks messages that arrive while you watch
+`req~TIMELINE-DIVIDER-003~1`
 
 When a new message arrives in a conversation the person has open and has read, a
 divider marks where the new messages start.
@@ -242,8 +242,8 @@ People glance away and back. The divider shows them what came in.
 
 Needs: ccl
 
-### VIEW-SEEN-001: Everyone can see how far each member has read
-`req~VIEW-SEEN-001~1`
+### TIMELINE-SEEN-001: Everyone can see how far each member has read
+`req~TIMELINE-SEEN-001~1`
 
 Each member's name is shown at the newest message they have read, including members
 who never post.
@@ -257,8 +257,8 @@ Knowing a message was seen saves people chasing for a reply.
 
 Needs: ccl, ios, macos, web
 
-### VIEW-SEARCH-001: Search covers a conversation's whole history
-`req~VIEW-SEARCH-001~1`
+### TIMELINE-SEARCH-001: Search covers a conversation's whole history
+`req~TIMELINE-SEARCH-001~1`
 
 Searching a conversation searches all of its history, and each result shows who sent
 it, its current text, when, and whether it was edited.
@@ -271,8 +271,8 @@ The message people search for is usually an old one.
 
 Needs: ccl, server
 
-### VIEW-SEARCH-002: Search results can be sorted newest or oldest first
-`req~VIEW-SEARCH-002~1`
+### TIMELINE-SEARCH-002: Search results can be sorted newest or oldest first
+`req~TIMELINE-SEARCH-002~1`
 
 Search results can be sorted newest first or oldest first.
 
@@ -285,8 +285,8 @@ Sometimes you want the latest mention, sometimes where something started.
 
 Needs: ccl, ios, macos, web
 
-### VIEW-SEARCH-003: A result can be seen in context
-`req~VIEW-SEARCH-003~1`
+### TIMELINE-SEARCH-003: A result can be seen in context
+`req~TIMELINE-SEARCH-003~1`
 
 A person can open a search result to read the messages around it.
 
@@ -299,8 +299,8 @@ A single message rarely makes sense on its own.
 
 Needs: ccl, ios, macos, web
 
-### VIEW-PIN-001: Only admins pin messages
-`req~VIEW-PIN-001~1`
+### TIMELINE-PIN-001: Only admins pin messages
+`req~TIMELINE-PIN-001~1`
 
 Only a Room's admins can pin messages. Messages cannot be pinned in Direct or Group
 conversations.
@@ -314,8 +314,8 @@ Pinned messages speak for the conversation, so they are kept to the people respo
 
 Needs: server, ios, macos, web
 
-### VIEW-PIN-002: New pins are flagged until seen
-`req~VIEW-PIN-002~1`
+### TIMELINE-PIN-002: New pins are flagged until seen
+`req~TIMELINE-PIN-002~1`
 
 When a message is pinned, the pins are flagged as new for everyone until they open
 the pinned messages, except for the person who pinned it.
@@ -329,8 +329,8 @@ A pin is meant to be seen. The person who pinned it already has.
 
 Needs: ccl
 
-### VIEW-PIN-003: Pinned messages are newest pin first
-`req~VIEW-PIN-003~1`
+### TIMELINE-PIN-003: Pinned messages are newest pin first
+`req~TIMELINE-PIN-003~1`
 
 Pinned messages are listed with the most recently pinned first.
 
@@ -343,8 +343,8 @@ The newest pin is usually the most relevant one.
 
 Needs: ccl
 
-### VIEW-PIN-004: Pinned messages can be reacted to
-`req~VIEW-PIN-004~1`
+### TIMELINE-PIN-004: Pinned messages can be reacted to
+`req~TIMELINE-PIN-004~1`
 
 A person can react to a pinned message from the pinned messages, even if it is far
 back in the conversation.
@@ -358,8 +358,8 @@ Pins are often announcements. Reacting is how people say they have seen them.
 
 Needs: ccl
 
-### VIEW-LINK-001: Links open without leaving Connect
-`req~VIEW-LINK-001~1`
+### TIMELINE-LINK-001: Links open without leaving Connect
+`req~TIMELINE-LINK-001~1`
 
 Links in Connect open in a new browser tab, so Connect stays open.
 
@@ -373,8 +373,8 @@ Following a link should never cost the person their place in the conversation.
 
 Needs: web
 
-### VIEW-LINK-002: Links without https still work
-`req~VIEW-LINK-002~1`
+### TIMELINE-LINK-002: Links without https still work
+`req~TIMELINE-LINK-002~1`
 
 A link written without "https://", like "powerhrg.com", still opens.
 
@@ -387,8 +387,8 @@ People type addresses the short way.
 
 Needs: web
 
-### VIEW-LINK-003: Addresses open in the device's maps app
-`req~VIEW-LINK-003~1`
+### TIMELINE-LINK-003: Addresses open in the device's maps app
+`req~TIMELINE-LINK-003~1`
 
 Tapping an address opens Apple Maps on Apple devices and Google Maps everywhere else.
 

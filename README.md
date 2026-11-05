@@ -60,9 +60,8 @@ Each area is one page. Open it to see its rules.
 | [Membership](spec/membership/connect-access.md) | Who has Connect V2 and V3, and what happens when people join, change, leave and come back |
 | [Account](spec/account/account.md) | Signing in and out, staying signed in, and using several devices |
 | [Settings](spec/settings/settings.md) | A person's own preferences, and how they follow them between devices |
-| [Conversations](spec/conversations/conversations.md) | The conversation list, names, sections, ordering, hiding, joining and leaving, finding and previewing, changing details, adding people, archiving |
-| [Inside a conversation](spec/conversations/conversation-view.md) | What a person sees with a conversation open, where it opens, who has read what, search, pinned messages and opening links |
-| [Direct and Group conversations](spec/conversations/direct-and-group.md) | Conversations between specific people, and each person's Self-DM Room |
+| [Conversations](spec/conversations/conversations.md) | Rooms, Direct and Group conversations and Self-DM Rooms: the conversation list, names, sections, ordering, hiding, joining and leaving, finding and previewing, changing details, adding people, archiving |
+| [Timeline](spec/conversations/timeline.md) | What a person sees with a conversation open, where it opens, who has read what, search, pinned messages and opening links |
 | [Messages](spec/messaging/messages.md) | Sending, typing and pasting, failures, editing, deleting, reactions, mentions, attachments, drafts, unread and read state, how long messages are kept |
 | [Notifications](spec/notifications/notifications.md) | What notifies a person, and acting on a notification |
 | [People](spec/people/people.md) | The company directory, profiles, online status, conversation members and admins |
