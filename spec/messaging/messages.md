@@ -9,6 +9,7 @@ Sending and reading messages.
 | Topic | Covers |
 |---|---|
 | `SEND` | Sending a message, and what happens when it fails |
+| `COMPOSE` | Typing, pasting and dropping into the composer |
 | `FAIL` | Messages that could not be sent |
 | `EDIT` | Editing a message |
 | `DELETE` | Deleting a message |
@@ -145,6 +146,69 @@ Rationale:
 A composer that lets someone type and then refuses to send is worse than one that waits a moment.
 
 Needs: ccl, ios, macos, web
+
+### MSG-COMPOSE-001: Enter sends on a computer
+`req~MSG-COMPOSE-001~1`
+
+On a computer, Enter sends the message and Shift+Enter starts a new line. On a
+phone or narrow window, Enter starts a new line.
+
+    Given a person is typing in Connect on their laptop
+    When they press Enter
+    Then the message is sent
+    But on their phone, Enter adds a new line
+
+Rationale:
+That is what people expect from chat on a keyboard. On a phone the send button is right there, and an accidental send is easy.
+
+Needs: web
+
+### MSG-COMPOSE-002: Pasting a picture or file attaches it
+`req~MSG-COMPOSE-002~1`
+
+Pasting a picture or file into the composer attaches it, ready to send with a
+message.
+
+    Given a person copies a screenshot
+    When they paste it into the composer
+    Then the screenshot is attached
+    And they can write a message before sending
+
+Rationale:
+Copy and paste is the quickest way to share a screenshot on a computer.
+
+Needs: web
+
+### MSG-COMPOSE-003: Dropping files attaches them
+`req~MSG-COMPOSE-003~1`
+
+Dragging files onto a conversation attaches them, ready to send with a message.
+Holding Shift while dropping sends them straight away.
+
+    Given a person drags two photos onto a conversation
+    Then it shows "Drag and drop files here"
+    And dropping them attaches both
+    But dropping them while holding Shift sends them immediately
+
+Rationale:
+Usually people want to say what they are sending. Sometimes the files speak for themselves.
+
+Needs: web
+
+### MSG-COMPOSE-004: Leaving with unsent attachments asks first
+`req~MSG-COMPOSE-004~1`
+
+Closing or reloading Connect in a browser while attachments are waiting to be sent
+asks the person to confirm.
+
+    Given a person attached a file but has not sent it
+    When they close the browser tab
+    Then the browser asks whether they really want to leave
+
+Rationale:
+Closing a tab by accident should not quietly throw away files someone picked.
+
+Needs: web
 
 ### MSG-FAIL-001: Messages queued behind a failed one show as failed
 `req~MSG-FAIL-001~1`
@@ -699,6 +763,21 @@ Rationale:
 Marking unread is how people leave themselves a reminder to come back.
 
 Needs: ccl, ios, macos, web
+
+### MSG-READ-009: Messages are read only while Connect is in front
+`req~MSG-READ-009~1`
+
+Messages only count as read while Connect is the window the person is using.
+
+    Given Connect is open but another window is in front
+    When new messages arrive in the open conversation
+    Then they stay unread
+    Until the person clicks back into Connect
+
+Rationale:
+A message on a screen nobody is looking at has not been read.
+
+Needs: web
 
 ### MSG-RETAIN-001: Messages are kept for six months
 `req~MSG-RETAIN-001~1`

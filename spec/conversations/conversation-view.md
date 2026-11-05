@@ -14,6 +14,7 @@ What a person sees with a conversation open: the messages, where it opens, the "
 | `SEEN` | Who has read what |
 | `SEARCH` | Searching a conversation |
 | `PIN` | Pinned messages |
+| `LINK` | Opening links and addresses |
 
 Design: <figma link> · Runway: <epic link>
 
@@ -356,3 +357,47 @@ Rationale:
 Pins are often announcements. Reacting is how people say they have seen them.
 
 Needs: ccl
+
+### VIEW-LINK-001: Links open without leaving Connect
+`req~VIEW-LINK-001~1`
+
+Links in Connect open in a new browser tab, so Connect stays open.
+
+    Given a person is using Connect in a browser
+    When they click a link in a message
+    Then the link opens in a new tab
+    And Connect stays where it was
+
+Rationale:
+Following a link should never cost the person their place in the conversation.
+
+Needs: web
+
+### VIEW-LINK-002: Links without https still work
+`req~VIEW-LINK-002~1`
+
+A link written without "https://", like "powerhrg.com", still opens.
+
+    Given a message says "see powerhrg.com"
+    When a person clicks the link
+    Then powerhrg.com opens
+
+Rationale:
+People type addresses the short way.
+
+Needs: web
+
+### VIEW-LINK-003: Addresses open in the device's maps app
+`req~VIEW-LINK-003~1`
+
+Tapping an address opens Apple Maps on Apple devices and Google Maps everywhere else.
+
+    Given an appointment card shows a homeowner's address
+    When a person on an iPhone taps it
+    Then it opens in Apple Maps
+    But on Android, in Google Maps
+
+Rationale:
+Each person's maps app is the one they use for directions.
+
+Needs: web

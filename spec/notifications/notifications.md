@@ -125,6 +125,54 @@ Showing an error for something the person cannot fix is worse than showing them 
 
 Needs: ccl
 
+### NOTIFY-TAP-003: Clicking a notification brings that conversation forward
+`req~NOTIFY-TAP-003~1`
+
+Clicking a Connect notification on a computer opens its conversation in the Connect
+tab or window already open, and brings it to the front. If none is open, a new one
+opens.
+
+    Given a person has Connect open in a browser tab behind other tabs
+    When they click a Connect notification
+    Then that tab comes to the front
+    And shows the conversation the notification was about
+
+Rationale:
+Opening a second copy of Connect, or switching a tab the person cannot see, both leave them looking for the message.
+
+Needs: web
+
+### NOTIFY-TAP-004: Reading a conversation clears its notifications
+`req~NOTIFY-TAP-004~1`
+
+When a person reads a conversation, its notifications are removed from the device's
+notification list.
+
+    Given a person has three notifications from "Philly Roofing"
+    When they read the conversation
+    Then those three notifications are gone
+
+Rationale:
+Notifications for messages already read are clutter, and make people check twice.
+
+Needs: web
+
+### NOTIFY-TAP-005: No notification for the conversation you are reading
+`req~NOTIFY-TAP-005~1`
+
+A person is not notified about a message in the conversation they are looking at.
+
+    Given a person has "Philly Roofing" open and in front of them
+    When a message arrives in it
+    Then no notification pops up for it
+
+Status: draft
+
+Rationale:
+Product to decide. Today the web shows a notification even while the person is reading that very conversation.
+
+Needs: web
+
 ### NOTIFY-REPLY-001: A reply from a notification is sent once
 `req~NOTIFY-REPLY-001~1`
 
@@ -199,3 +247,68 @@ Rationale:
 A notification is read in a glance. It must be in the person's own language.
 
 Needs: server, ios, macos, web
+
+### NOTIFY-DEVICE-003: Notifications are turned on per browser
+`req~NOTIFY-DEVICE-003~1`
+
+In a web browser, a person turns Connect notifications on or off for that browser
+only, from Settings. Connect remembers if they turned them off.
+
+    Given a person uses Connect in Chrome and as an installed app
+    When they turn notifications off in Chrome
+    Then Chrome stops showing Connect notifications
+    And the installed app keeps showing them
+
+Rationale:
+People choose where they want to be interrupted, device by device.
+
+Needs: web
+
+### NOTIFY-DEVICE-004: Blocked notifications explain how to unblock them
+`req~NOTIFY-DEVICE-004~1`
+
+If a person has blocked notifications in their browser and tries to turn them on,
+Connect tells them how to unblock them.
+
+    Given a person blocked Connect's notifications in their browser
+    When they turn notifications on in Settings
+    Then they see "Notifications blocked. Enable them in system or browser settings to continue."
+    And the setting stays off
+
+Rationale:
+Only the browser can undo a block, so the person has to be told where to go.
+
+Needs: web
+
+### NOTIFY-DEVICE-005: Browsers without notifications point to the app
+`req~NOTIFY-DEVICE-005~1`
+
+If a browser cannot show notifications, turning them on tells the person to use the
+Connect app instead.
+
+    Given a browser that cannot show notifications
+    When a person turns notifications on in Settings
+    Then they see "Notifications aren't available in this browser. To receive alerts for new messages, please download the Connect app."
+
+Rationale:
+The person can still get notifications, just not in that browser.
+
+Needs: web
+
+### NOTIFY-DEVICE-006: When the web asks to send notifications
+`req~NOTIFY-DEVICE-006~1`
+
+Connect asks for permission to send notifications once, at a moment the person
+chooses, not every time it opens.
+
+    Given a person has never been asked about Connect notifications in their browser
+    When they sign in
+    Then they are not asked straight away
+    But are offered notifications in a way they can accept or put off
+
+Status: draft
+
+Rationale:
+Product to decide. Today the browser asks as soon as the person signs in, and again on every visit until they answer. Browsers start hiding sites that ask too often.
+
+Needs: web

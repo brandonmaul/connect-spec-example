@@ -66,6 +66,21 @@ Rationale:
 
 Needs: ccl, ios, macos, web
 
+### ACCOUNT-SIGNIN-004: Signing in returns you to where you were going
+`req~ACCOUNT-SIGNIN-004~1`
+
+If a person opens a link to a conversation while signed out, signing in takes them
+to that conversation.
+
+    Given a person clicks a link to "Philly Roofing" while signed out
+    When they sign in
+    Then "Philly Roofing" opens
+
+Rationale:
+Landing on the home screen after signing in makes people find the link again.
+
+Needs: web
+
 ### ACCOUNT-SESSION-001: People stay signed in
 `req~ACCOUNT-SESSION-001~1`
 

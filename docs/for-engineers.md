@@ -2,25 +2,136 @@
 
 Rules in `spec/` are [OpenFastTrace](https://github.com/itsallcode/openfasttrace)
 (OFT) markdown. This page is the detail that product owners and leadership do not
-need.
+need: how rule IDs are built, how areas and topics are organised, the file format,
+and how tests in the code repos point at rules.
+
+## Rule IDs
+
+Every rule ID has three parts:
+
+```
+MSG  -  READ  -  002
+ │       │        │
+ │       │        └── number: the rule's place in its topic
+ │       └─────────── topic: the theme inside the area
+ └─────────────────── area: the part of Connect
+```
+
+| Part | Looks like | Example | Means |
+|---|---|---|---|
+| **Area** | Capital letters, may include digits | `MSG`, `MEMBERSHIP`, `V2V3` | A part of Connect. Each area has its own file. |
+| **Topic** | Capital letters only | `SEND`, `READ`, `ARCHIVE` | One theme inside an area. Each area lists its topics at the top of its file. |
+| **Number** | Three digits | `001`, `002` | Counts up from `001` within each topic. |
+
+So `MSG-READ-002` is the second rule about reading, in the Messages area.
+
+IDs match `^[A-Z][A-Z0-9]*-[A-Z]+-\d{3}$`. OFT sees the whole ID as one item name;
+the area/topic split is this repo's convention.
+
+Three things never change, so links to a rule keep working:
+
+- **An ID is never reused.** A retired rule keeps its number, and the next new rule
+  takes the next number up.
+- **An ID is never renamed.** If a rule turns out to belong in another topic, it
+  keeps its old ID.
+- **A number is never filled in.** If `003` is retired, the next rule is still `004`.
+
+## Areas and topics
+
+Each area is one file. Its code and topics are declared at the top of the file, and
+every rule in the file uses that area code and one of those topics.
+
+| Area | Code | Topics |
+|---|---|---|
+| [Membership](../spec/membership/connect-access.md) | `MEMBERSHIP` | `SOURCE` `ACCESS` `PROFILE` `LEAVE` `RETURN` |
+| [Account](../spec/account/account.md) | `ACCOUNT` | `SIGNIN` `SESSION` `SIGNOUT` `DEVICE` `PRIVACY` |
+| [Settings](../spec/settings/settings.md) | `SETTING` | `SORT` `DENSITY` `SYNC` |
+| [Conversations](../spec/conversations/conversations.md) | `CONV` | `LIST` `NAME` `SECTION` `ORDER` `HIDE` `JOIN` `LEAVE` `BROWSE` `PREVIEW` `EDIT` `ADD` `MENTION` `ARCHIVE` `DELETE` |
+| [Inside a conversation](../spec/conversations/conversation-view.md) | `VIEW` | `SHOW` `OPEN` `DIVIDER` `SEEN` `SEARCH` `PIN` `LINK` |
+| [Direct and Group conversations](../spec/conversations/direct-and-group.md) | `DM` | `START` `SIZE` `SELF` |
+| [Messages](../spec/messaging/messages.md) | `MSG` | `SEND` `COMPOSE` `FAIL` `EDIT` `DELETE` `REACT` `MENTION` `ATTACH` `DRAFT` `READ` `RETAIN` |
+| [Notifications](../spec/notifications/notifications.md) | `NOTIFY` | `LEVEL` `TEXT` `TAP` `REPLY` `DEVICE` |
+| [People](../spec/people/people.md) | `PEOPLE` | `DIRECTORY` `PROFILE` `STATUS` `MEMBERS` `ADMIN` |
+| [Audiences](../spec/audiences/conversation-members.md) | `AUD` | `RULE` `MEMBER` `EDIT` `REACH` `REMOVE` |
+| [Corporate events](../spec/events/corporate-events.md) | `EVENT` | `SHOW` `ORDER` `TAP` `REFRESH` |
+| [Appointment cards](../spec/appointments/appointment-cards.md) | `APPT` | `TAG` `CARD` `ACCESS` |
+| [V2 to V3 bridge](../spec/bridge/v2-to-v3.md) | `V2V3` | `MSG` `REACT` `READ` `DM` `PUBLIC` `AUD` `MENTION` `ARCHIVE` |
+| [V3 to V2 bridge](../spec/bridge/v3-to-v2.md) | `V3V2` | `MSG` `REACT` `READ` `ARCHIVE` |
+| [Sharing into Connect](../spec/sharing/sharing-into-connect.md) | `SHARE` | `SHEET` `PICK` `LINK` `FILE` `FAIL` |
+| [Voice assistants](../spec/voice/voice-assistants.md) | `VOICE` | `SEND` |
+| [The Connect app](../spec/app/connect-app.md) | `APP` | `INSTALL` `ICON` `UPDATE` `OFFLINE` `LAYOUT` |
+
+The same topic word can appear in several areas when it means the same thing. For
+example, `ARCHIVE` is about archiving in Conversations and in both bridges.
+
+### Behavior on only some devices
+
+Areas are named for **what a person can do**, never for a device or platform. There
+is no "Apple" or "web" area. Which devices a rule applies to is said by its `Needs`:
+
+| Behavior | Rule | Needs |
+|---|---|---|
+| Sending a message with Siri | VOICE-SEND-001 in Voice assistants | `ios` |
+| Sharing a photo into Connect from another app | SHARE-PICK-001 in Sharing into Connect | `ios, macos, web` |
+| Installing Connect on the home screen from the browser | APP-INSTALL-001 in The Connect app | `web` |
+| Enter sends a message on a computer | MSG-COMPOSE-001 in Messages | `web` |
+| Shortcuts from pressing and holding the app icon | APP-ICON-004 in The Connect app | `ios, web` |
+
+This keeps a behavior in one place when it spreads to more devices. If Android
+sharing arrives, the sharing rules stay where they are and gain one more word in
+`Needs`. If a behavior needs different wording on different devices, write one rule
+per device in the same area, each with its own `Needs`.
+
+### Adding a topic
+
+Add a topic when a new rule is about a theme that none of the area's topics cover.
+
+1. Check the topics at the top of the area's file. A new rule that fits an existing
+   topic goes there, even if the topic is small.
+2. Look across the [other areas](#areas-and-topics). If one already uses a word for
+   the same idea, use the same word, so `ARCHIVE` always means archiving.
+3. Choose one short word in capital letters, with no digits or dashes. Name the
+   behavior, not a screen or feature name that might change: `READ`, not `BADGE`.
+4. Add the topic, with a one-line description, to the topics list at the top of the
+   area's file, and to the [table above](#areas-and-topics).
+5. Its first rule is number `001`, for example `MSG-PIN-001`.
+
+### Adding an area
+
+Add an area for a part of Connect that has rules of its own and fits no existing
+area. If it could be a topic in an existing area, make it a topic instead: fewer
+areas are easier to find your way around.
+
+1. Choose the area's code: short capital letters, digits allowed (`CONV`, `VOICE`,
+   `V2V3`). It must not be used by any other area, now or in the past. Name the part
+   of the product, not a team, project, release or device, because the code lasts as
+   long as the rules do (see [behavior on only some devices](#behavior-on-only-some-devices)).
+2. Copy [templates/new-area.md](../templates/new-area.md) into `spec/`, in the folder
+   for that part of Connect, or a new folder if none fits.
+3. Fill in the area's name, what it covers and its first topics. Replace `AREA` and
+   `TOPIC` in the example rule.
+4. Add it to the [table above](#areas-and-topics) and to the area list in the
+   [README](../README.md#where-the-rules-are).
+5. Open a pull request.
 
 ## Format rules
 
 - Each rule is a `###` heading `AREA-TOPIC-NNN: Title`, with the OFT ID
   `` `req~AREA-TOPIC-NNN~R` `` on the **line directly after it**. The name in the
   heading and in the ID must match.
-- IDs match `^[A-Z][A-Z0-9]*-[A-Z]+-\d{3}$`: area (letters, then letters or digits),
-  topic (letters only), three-digit number. OFT sees the whole thing as one item
-  name; the area/topic split is this repo's convention, explained in the README.
-- One area per file. Each file declares `**Area code:**` and a **Topics** table
-  before its first rule, and every rule in the file uses that area and one of those
-  topics. The README's area table lists the same codes and topics.
-- IDs are never reused, renamed or back-filled, even for rejected rules.
 - The scenario is indented four spaces, not fenced, so OFT reads it as description.
-- Sections are OFT keywords at the start of a line: `Rationale:`, `Comment:`,
-  `Status:` (`draft`, `rejected`; omitted means approved) and `Needs:`.
-- `Needs` values are OFT artifact types, one per place that must prove the rule:
-  `ccl`, `server`, `nitro`, `nitroid`, `ios`, `macos`, `web`.
+- Sections are OFT keywords at the start of a line, each after a blank line:
+  `Rationale:`, `Comment:`, `Status:` (`draft`, `rejected`; omitted means approved)
+  and `Needs:`.
+- Rules in a file are ordered by the topic table, then by number.
+- Only `spec/` is traced. The README and `templates/` contain example IDs that are
+  not rules.
+
+## Needs
+
+`Needs` values are OFT artifact types, one per place that must prove the rule:
+`ccl`, `server`, `nitro`, `nitroid`, `ios`, `macos`, `web`.
+
 - List **every system a rule passes through**, not only where it starts and ends.
   Each repo's tests fake their neighbours, so a hop left out of `Needs` can break
   while every listed test still passes. `nitroid` exists for this reason: Nitro ID
@@ -29,8 +140,6 @@ need.
   a third-party product with no tests of ours.
 - Even with every hop listed, each repo only proves its own step. Proving the whole
   path needs an end-to-end test, which is still undecided (below).
-- Only `spec/` is traced. The README and `templates/` contain example IDs that are
-  not rules.
 
 ## Proving a rule from a code repo
 
