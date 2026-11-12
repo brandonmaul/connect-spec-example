@@ -65,6 +65,7 @@ SECTION_DIRS = {"Glossary": "glossary", "Design": "design", "Behavior rules": "s
 
 SYSTEM_TARGETS = ["nitro", "nitroid", "server", "ccl"]
 CLIENT_TARGETS = ["browser", "pwa", "macos", "ios"]
+CLIENT_LABELS = {"browser": "Browser", "pwa": "PWA", "macos": "Mac", "ios": "iPhone and iPad"}
 TARGETS = SYSTEM_TARGETS + CLIENT_TARGETS
 STATUSES = {"draft", "rejected"}
 
@@ -338,9 +339,10 @@ def build_status(rules: list[Rule], pages: list[tuple[str, list[str]]]) -> str:
     areas: dict[str, list[Rule]] = {}
     for r in sorted(rules, key=lambda r: order.index(r.path) if r.path in order else len(order)):
         areas.setdefault(r.path, []).append(r)
-    head = "| Area | Agreed | Draft | Rejected | " + " | ".join(CLIENT_TARGETS) + " |"
+    head = ("| Area | Agreed | Draft | Rejected | "
+            + " | ".join(CLIENT_LABELS[c] for c in CLIENT_TARGETS) + " |")
     lines = ["# Rule counts", "",
-             "Agreed rules per area, and how many agreed rules each client must follow. "
+             "Rules per area, and how many agreed rules each client must follow. "
              "Once code repos report test coverage, each client column becomes "
              "\"proven / required\".", "", head,
              "|---" * (4 + len(CLIENT_TARGETS)) + "|"]
@@ -366,34 +368,106 @@ HTML = """<!doctype html>
 <title>Connect Source of Truth</title>
 <link rel="alternate" type="text/plain" href="llms-full.txt" title="Everything in one file">
 <style>
-:root{--bg:#fff;--fg:#1d1d1f;--muted:#6e6e73;--rule:#e5e5ea;--fill:#f5f5f7;--link:#0a66d6}
-@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#f2f2f7;--muted:#a1a1a6;--rule:#2c2c2e;--fill:#1c1c1e;--link:#5aa8ff}}
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#6e6e73;--rule:#e5e5ea;--fill:#f5f5f7;--link:#0a66d6;
+--draft-bg:#fff4d6;--draft-fg:#7a5600;--rej-bg:#ececef;--rej-fg:#5c5c62}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#f2f2f7;--muted:#a1a1a6;--rule:#2c2c2e;--fill:#1c1c1e;--link:#5aa8ff;
+--draft-bg:#3a2f12;--draft-fg:#f5cf6b;--rej-bg:#2c2c2e;--rej-fg:#a1a1a6}}
 body{background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0}
-main{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+html{scroll-padding-top:64px}
+main{max-width:860px;margin:0 auto;padding:16px 16px 80px}
 a{color:var(--link)}code{background:var(--fill);padding:1px 4px;border-radius:4px;font-size:.9em}
 pre{background:var(--fill);padding:12px;border-radius:6px;overflow-x:auto}pre code{background:none;padding:0}
 table{border-collapse:collapse;width:100%;display:block;overflow-x:auto;font-size:.92em}
 th,td{border:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
 h1{border-bottom:1px solid var(--rule);padding-bottom:6px;margin-top:48px}
 .banner{background:var(--fill);border-radius:8px;padding:12px 14px;color:var(--muted);font-size:.9em}
+nav{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--rule)}
+nav .bar{max-width:860px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+nav a{text-decoration:none;font-size:.9em;white-space:nowrap}
+nav label{margin-left:auto;font-size:.9em;color:var(--muted);white-space:nowrap}
+nav select{font:inherit;color:var(--fg);background:var(--fill);border:1px solid var(--rule);border-radius:6px;padding:2px 6px}
+#filter-note{display:none;margin:12px 0 0}
+.rule{border-left:3px solid transparent;padding-left:10px;margin-left:-13px}
+.rule.draft{border-left-color:var(--draft-fg)}.rule.rejected{border-left-color:var(--rule);opacity:.75}
+.badge{display:inline-block;font-size:.7em;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+padding:1px 6px;border-radius:4px;margin-left:8px;vertical-align:middle}
+.badge.draft{background:var(--draft-bg);color:var(--draft-fg)}.badge.rejected{background:var(--rej-bg);color:var(--rej-fg)}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
+<nav><div class="bar" id="nav">
+<label>Rules for <select id="client"><option value="">every client</option>__OPTIONS__</select></label>
+</div></nav>
 <main>
 <p class="banner">Generated from <a href="__REPO__">the repo</a> at <code>__SHA__</code>. To change anything, comment on it or open a pull request. For Claude, use <a href="llms-full.txt">llms-full.txt</a>.</p>
+<p class="banner" id="filter-note"></p>
 <div id="content">Loading…</div>
 </main>
 <script id="source" type="text/markdown">__MARKDOWN__</script>
+<script id="rules" type="application/json">__RULES__</script>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <script>
 const md = document.getElementById("source").textContent;
+const rules = JSON.parse(document.getElementById("rules").textContent);
 const out = document.getElementById("content");
 out.innerHTML = marked.parse(md);
+const RULE_ID = /^([A-Z][A-Z0-9]*-[A-Z]+-\\d{3})/;
 out.querySelectorAll("h1,h2,h3,h4,h5").forEach(h => {
-  const m = h.textContent.match(/^([A-Z][A-Z0-9]*-[A-Z]+-\\d{3})/);
+  const m = h.textContent.match(RULE_ID);
   h.id = m ? m[1] : h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 });
+
+// Wrap each rule (its heading up to the next heading) so it can be filtered and badged.
+[...out.children].forEach(el => {
+  const rule = /^H[1-6]$/.test(el.tagName) && rules[el.id];
+  if (!rule) return;
+  const level = +el.tagName[1];
+  const box = document.createElement("section");
+  box.className = "rule " + rule.status;
+  box.dataset.needs = rule.needs.join(" ");
+  el.before(box);
+  let next = el.nextElementSibling;
+  box.append(el);
+  while (next && !(/^H[1-6]$/.test(next.tagName) && +next.tagName[1] <= level)) {
+    const after = next.nextElementSibling; box.append(next); next = after;
+  }
+  if (rule.status !== "approved") {
+    const b = document.createElement("span");
+    b.className = "badge " + rule.status; b.textContent = rule.status;
+    el.append(b);
+  }
+});
+
+// One nav link per top-level section.
+const nav = document.getElementById("nav"), picker = nav.querySelector("label");
+[...out.querySelectorAll("h1")].slice(1).forEach(h => {  // skip the page title
+  const a = document.createElement("a");
+  a.href = "#" + h.id; a.textContent = h.textContent.replace(/ \\(.*\\)$/, "");
+  nav.insertBefore(a, picker);
+});
+
+// Client filter: show only the rules that client must follow; shareable as ?client=ios.
+const select = document.getElementById("client"), note = document.getElementById("filter-note");
+function applyFilter() {
+  const c = select.value;
+  let shown = 0, drafts = 0;
+  out.querySelectorAll(".rule").forEach(box => {
+    const show = !c || (box.dataset.needs.split(" ").includes(c) && !box.classList.contains("rejected"));
+    box.hidden = !show;
+    if (show && c) { shown++; if (box.classList.contains("draft")) drafts++; }
+  });
+  note.hidden = !c; note.style.display = c ? "block" : "none";
+  note.textContent = c ? `Showing the ${shown} rules ${select.selectedOptions[0].text} must follow (${shown - drafts} agreed, ${drafts} draft). Glossary, design and context are shown in full.` : "";
+  const url = new URL(location); c ? url.searchParams.set("client", c) : url.searchParams.delete("client");
+  history.replaceState(null, "", url);
+}
+select.value = new URLSearchParams(location.search).get("client") || "";
+select.addEventListener("change", applyFilter);
+applyFilter();
+if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+
 out.querySelectorAll("code.language-mermaid").forEach(c => {
   const d = document.createElement("div"); d.className = "mermaid"; d.textContent = c.textContent;
   c.parentElement.replaceWith(d);
@@ -406,11 +480,19 @@ mermaid.run();
 """
 
 
-def build_html(full: str, base: str, sha: str) -> str:
-    safe = full.replace("</script", "<\\/script")
-    return (HTML.replace("__MARKDOWN__", safe).replace("__REPO__", html.escape(base or "#"))
+def build_html(full: str, status: str, rules: list[Rule], base: str, sha: str) -> str:
+    """The bundle for people: rule counts first, then everything else, with a nav bar
+    and a client filter driven by each rule's Needs and Status."""
+    status_section = "# Status\n\n" + demote_headings(status).split("\n", 1)[1]
+    markdown = full.replace("\n# ", "\n" + status_section + "\n# ", 1)
+    options = "".join(f'<option value="{c}">{html.escape(CLIENT_LABELS[c])}</option>'
+                      for c in CLIENT_TARGETS)
+    meta = {r.id: {"status": r.status, "needs": r.needs} for r in rules}
+    return (HTML.replace("__MARKDOWN__", markdown.replace("</script", "<\\/script"))
+            .replace("__RULES__", json.dumps(meta).replace("</", "<\\/"))
+            .replace("__OPTIONS__", options)
+            .replace("__REPO__", html.escape(base or "#"))
             .replace("__SHA__", html.escape(sha)))
-
 
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -457,7 +539,7 @@ def main() -> int:
         write(DIST / "views" / f"client-{c}.md", build_client_view(c, rules, base))
     write(DIST / "views" / "status.md", build_status(rules, pages))
     write(DIST / "rules.json", json.dumps([r.__dict__ for r in rules], indent=1) + "\n")
-    write(DIST / "index.html", build_html(full, base, sha))
+    write(DIST / "index.html", build_html(full, build_status(rules, pages), rules, base, sha))
     print(f"built {DIST.relative_to(ROOT)}/ ({len(full):,} characters in llms-full.txt)")
     return 0
 
