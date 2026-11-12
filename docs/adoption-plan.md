@@ -12,17 +12,22 @@ list of what "equivalent to Apple" means.
 
 Once the rules exist, "done" is a query:
 
-> connect-web is done when every approved rule that applies to `web` or `ccl` is
-> proven by a passing test in its repo.
+> connect-web is done when every approved rule that applies to `browser`, `pwa` or
+> `ccl` is proven by a passing test in its repo.
 
-Count the rules that apply to `web`, count the ones with a passing test, and the
+Count the rules that apply to `browser` and `pwa`, count the ones with a passing test, and the
 difference is the work left. Divided by how fast the team closes rules, that is a
 timeline. It also separates two questions that are blurred today: does the CCL
 satisfy every `ccl` rule, and does connect-web render and behave correctly for every
-`web` rule. Work for only some devices, like Siri, never lists `web`, so it never counts
-against web.
+`browser` and `pwa` rule. Work for only some clients, like Siri, never lists them, so
+it never counts against web.
 
 ## Getting to the first few hundred rules
+
+This repo has done one round of this already: the UX context guide was taken as
+confirmed, every rule it supports was approved or corrected to match it, every
+behavior it describes became a rule, and everything it couldn't confirm became a
+draft. The drafts are Product's first triage queue.
 
 1. **Harvest** candidates from connect-apple (the de facto definition), nitro-web V2,
    existing tests, Huddle flows, Figma and Runway acceptance criteria. An agent can
@@ -41,4 +46,8 @@ against web.
   it is reported centrally.
 - **Granularity.** Agree an example of "too coarse" and "too fine" before seeding hundreds.
 - **V2 scope.** V2 sunsets in 2027, so probably only what V3 must match, and the bridge.
-- **Ownership.** Product owns `spec/`. Fill in `.github/CODEOWNERS` with real teams.
+- **Ownership.** Product owns `spec/`, UX owns `glossary/` and `design/`. Fill in
+  `.github/CODEOWNERS` with real teams.
+- **Context feeds.** `context/projects.md` and `context/parity.md` are kept by hand
+  today. Projects could be generated from Runway and Huddle, and parity from each
+  repo's rule coverage.

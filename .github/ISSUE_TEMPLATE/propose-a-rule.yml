@@ -19,7 +19,7 @@ body:
       placeholder: |
         Given a user sends a message while the server is unreachable
         When the send fails
-        Then the message stays in the timeline marked as failed
+        Then the message stays in the Conversation View marked as failed
     validations:
       required: true
   - type: textarea
@@ -34,9 +34,10 @@ body:
       label: Where do people see it?
       description: Tick the apps. Engineering works out which systems behind them are involved.
       options:
-        - label: iPhone and iPad
+        - label: Browser (Connect in a web browser)
+        - label: PWA (installed from the browser, and Android)
         - label: Mac
-        - label: Browser and Android
+        - label: iPhone and iPad
         - label: Nowhere on screen, it happens behind the scenes
         - label: Not sure, let engineering decide
   - type: textarea

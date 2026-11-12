@@ -10,7 +10,7 @@
 |---|---|
 | `TOPIC` | <One line: the theme this topic's rules are about> |
 
-Design: <figma link> · Runway: <epic link>
+Design: <Huddle project link>
 
 ### AREA-TOPIC-001: <Short title>
 `req~AREA-TOPIC-001~1`
@@ -24,4 +24,4 @@ Design: <figma link> · Runway: <epic link>
 Rationale:
 <The reason it works this way.>
 
-Needs: ios, macos, web
+Needs: browser, pwa, macos, ios

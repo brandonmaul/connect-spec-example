@@ -14,5 +14,7 @@
 
 - [ ] Each rule describes one thing a person could watch happen
 - [ ] The rationale says why
-- [ ] Links to Figma, Runway or the original Connect thread are included where they exist
-- [ ] `Needs` lists the apps where people see it (the reviewer adds the systems behind them)
+- [ ] Links to Figma, Huddle, Runway or the original thread or comment are in this description (not in the rule)
+- [ ] `Needs` lists the clients where people see it (the reviewer adds the systems behind them)
+- [ ] It uses glossary terms; any new term is added to `glossary/` in the same pull request
+- [ ] `python3 scripts/build.py --check` passes

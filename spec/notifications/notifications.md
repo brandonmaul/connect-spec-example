@@ -1,6 +1,6 @@
 # Notifications
 
-Which messages notify a person, and what happens when they act on a notification. Unread badges in the conversation list are covered in [Conversations](../conversations/conversations.md).
+What makes a conversation bold (unread) or gives it a Notification Badge, which messages notify a person, the counts on the app icon, what a notification says, and what happens when a person acts on one. Mark as Unread is covered in [Conversations](../conversations/conversations.md); when an open conversation is marked read is covered in [Conversation View](../conversations/conversation-view.md).
 
 **Area code:** `NOTIFY`
 
@@ -8,42 +8,124 @@ Which messages notify a person, and what happens when they act on a notification
 
 | Topic | Covers |
 |---|---|
-| `LEVEL` | What each conversation notifies a person about |
+| `UNREAD` | What makes a conversation bold, gives it a Notification Badge, or sends a notification |
+| `LEVEL` | What each Room notifies a person about |
+| `COUNT` | The unread count on the app icon and browser tab |
 | `TEXT` | What a notification says |
-| `TAP` | Opening Connect from a notification |
+| `TAP` | Opening Connect from a notification, and clearing notifications |
 | `REPLY` | Replying or reacting straight from a notification |
 | `DEVICE` | Turning notifications on and off for a device |
 
-Design: <figma link> · Runway: <epic link>
+Design: [Handoff Repository](https://huddle.powerapp.cloud/projects/489) · [User Options](https://huddle.powerapp.cloud/projects/650)
 
-### NOTIFY-LEVEL-001: Each conversation has a notification level
+### NOTIFY-UNREAD-001: A message from someone else makes a conversation bold
+`req~NOTIFY-UNREAD-001~1`
+
+A message from another person marks the conversation unread, and its row in the
+Conversation List turns bold.
+
+    Given a person has read everything in a conversation
+    When someone else sends a message in it
+    Then the conversation is unread and its row is bold
+
+Rationale:
+Bold tells the person there is something they haven't read, whether or not it notified them.
+
+Needs: ccl, browser, pwa, macos, ios
+
+### NOTIFY-UNREAD-002: A notifying message adds a Notification Badge
+`req~NOTIFY-UNREAD-002~1`
+
+A notifying message adds a Notification Badge with a count to the conversation's row
+and to the app icon, as well as making it bold.
+
+    Given a person's conversation notifies them about every message
+    When someone sends a message in it
+    Then the row is bold
+    And it shows a Notification Badge with a count
+    And the app icon shows a badge
+
+Rationale:
+The badge separates what asked for the person's attention from what is merely unread.
+
+Needs: server, ccl, browser, pwa, macos, ios
+
+### NOTIFY-UNREAD-003: A message that doesn't notify only bolds
+`req~NOTIFY-UNREAD-003~1`
+
+A message that is not notifying makes the conversation bold but adds no
+Notification Badge and sends no notification.
+
+    Given a person's Room notifies them only about mentions of them
+    When someone posts in it without mentioning them
+    Then the Room's row is bold
+    And it has no Notification Badge
+    And no notification is sent
+
+Rationale:
+The person chose not to be interrupted by this conversation, but should still see that it has something new.
+
+Needs: server, ccl, browser, pwa, macos, ios
+
+### NOTIFY-UNREAD-004: A notifying message sends a notification when Connect is not in focus
+`req~NOTIFY-UNREAD-004~1`
+
+When a notifying message arrives while Connect is not in focus, the person gets a
+notification.
+
+    Given Connect is not in focus on a person's device
+    When a notifying message arrives for them
+    Then the device shows a Connect notification
+
+Rationale:
+A person who isn't looking at Connect needs to be told when something asks for their attention.
+
+Needs: server, browser, pwa, macos, ios
+
+### NOTIFY-UNREAD-005: Bots never notify
+`req~NOTIFY-UNREAD-005~1`
+
+A message from a bot never sends a notification or adds a Notification Badge.
+
+    Given the Nitro App bot posts in a person's conversation
+    Then the person gets no notification
+    And the conversation has no Notification Badge for it
+
+Rationale:
+Automated messages are informational; they shouldn't interrupt people like a coworker would.
+
+Needs: server, browser, pwa, macos, ios
+
+### NOTIFY-LEVEL-001: Each Room has a notification level
 `req~NOTIFY-LEVEL-001~1`
 
-For each conversation, a person chooses to be notified about every message, about
-mentions of everyone and of them, only about mentions of them, or about nothing.
+For each Room, a person chooses one of four notification levels: All Messages;
+Mentions Only (@all and @you); Direct Mentions Only (@you); or No Notifications.
 
-    Given a person is in a busy conversation
-    When they set it to "Only mentions of me"
+    Given a person is in a busy Room
+    When they set it to Direct Mentions Only
     Then they are notified when someone mentions them
-    But not when someone mentions everyone, or posts without mentioning them
+    But not when someone mentions @all, or posts without mentioning them
 
 Rationale:
-People are in many conversations that matter to different degrees. One setting for all of them would mean too many notifications or too few.
+People are in many Rooms that matter to different degrees. One setting for all of them would mean too many notifications or too few.
 
-Needs: server, ios, macos, web
+Needs: server, browser, pwa, macos, ios
 
-### NOTIFY-LEVEL-002: Direct and Group conversations notify on every message
+### NOTIFY-LEVEL-002: Default notification levels
 `req~NOTIFY-LEVEL-002~1`
 
-Until a person changes it, a Direct or Group conversation notifies them about every
-message, and a Room notifies them about mentions of everyone and of them.
+Until a person changes it, a People Conversation notifies them about every message,
+and a Room notifies them about mentions of everyone and of them.
 
-    Given a person has just been added to a Room and to a Direct conversation
+    Given a person has just been added to a Room and to a DM
     When a message without a mention arrives in each
-    Then only the Direct conversation notifies them
+    Then only the DM notifies them
 
 Rationale:
-A Direct or Group conversation is written to you. Most Rooms are shared by many people, and notifying everyone of everything would bury what matters.
+A People Conversation is written to you. Most Rooms are shared by many people, and notifying everyone of everything would bury what matters.
+
+Status: draft
 
 Needs: server
 
@@ -59,7 +141,108 @@ If a message mentions the same person more than once, they get one notification.
 Rationale:
 Repeating a name is emphasis, not a request to buzz someone twice.
 
-Needs: ccl, ios, macos, web
+Status: draft
+
+Needs: ccl, browser, pwa, macos, ios
+
+### NOTIFY-LEVEL-004: No Notifications still bolds
+`req~NOTIFY-LEVEL-004~1`
+
+In a Room set to No Notifications, new messages make the Room bold but add no
+Notification Badge.
+
+    Given a person set a Room to No Notifications
+    When someone posts in it, mentioning them
+    Then the Room's row is bold
+    And it has no Notification Badge
+
+Rationale:
+Silencing a Room shouldn't hide that it has new messages.
+
+Needs: server, ccl, browser, pwa, macos, ios
+
+### NOTIFY-LEVEL-005: The notification level is set from the bell on macOS and Web
+`req~NOTIFY-LEVEL-005~1`
+
+On macOS, Browser and PWA, a Room's notification level is set from the notification
+bell in its Conversation Header.
+
+    Given a person has a Room open on macOS
+    When they click the bell in the Conversation Header
+    Then they can choose the Room's notification level
+
+Rationale:
+The setting belongs next to the Room it changes.
+
+Needs: browser, pwa, macos
+
+### NOTIFY-LEVEL-006: The notification level is set from Room Info on iOS
+`req~NOTIFY-LEVEL-006~1`
+
+On iOS, a Room's notification level is set from Room Info.
+
+    Given a person has a Room open on iOS
+    When they open Room Info
+    Then they can choose the Room's notification level
+
+Rationale:
+On a phone the header has no room for the bell, so the setting lives with the Room's other details.
+
+Needs: ios
+
+### NOTIFY-LEVEL-007: Notification levels sync across devices
+`req~NOTIFY-LEVEL-007~1`
+
+A Room's notification level, once set, applies on all of the person's devices.
+
+    Given a person sets a Room to Mentions Only on their Mac
+    When they open Connect on their iPhone
+    Then the Room is set to Mentions Only there too
+
+Rationale:
+People expect a Room to behave the same wherever they read it.
+
+Needs: server, ccl, browser, pwa, macos, ios
+
+### NOTIFY-COUNT-001: The macOS Dock icon counts unread messages
+`req~NOTIFY-COUNT-001~1`
+
+The badge on the Connect icon in the macOS Dock shows the number of unread messages.
+
+    Given a person has 3 unread messages in one conversation and 2 in another
+    Then the Dock icon's badge shows 5
+
+Rationale:
+On a computer the Dock tells the person how much is waiting without opening Connect.
+
+Needs: ccl, macos
+
+### NOTIFY-COUNT-002: The iOS app icon counts conversations with unread
+`req~NOTIFY-COUNT-002~1`
+
+The badge on the Connect app icon on iOS shows the number of conversations with
+unread messages.
+
+    Given a person has 3 unread messages in one conversation and 2 in another
+    Then the iOS app icon's badge shows 2
+
+Rationale:
+On a phone, the number of conversations waiting is the quickest measure of what needs attention.
+
+Needs: ccl, ios
+
+### NOTIFY-COUNT-003: The Firefox tab counts unread conversations
+`req~NOTIFY-COUNT-003~1`
+
+In Firefox, the Connect tab shows the number of unread conversations.
+
+    Given a person uses Connect in Firefox with 2 unread conversations
+    Then the Connect tab shows 2
+
+Rationale:
+A browser tab is the only place a person sees Connect's state while working in other tabs.
+
+Needs: browser
 
 ### NOTIFY-TEXT-001: A notification shows who wrote what, and where
 `req~NOTIFY-TEXT-001~1`
@@ -70,10 +253,12 @@ Its text is the message, up to its first 1,024 characters.
     Given Dana Ruiz writes "Crew is on site" in the Room "Philly Roofing"
     Then the notification's title is "Dana Ruiz in Philly Roofing"
     And its text is "Crew is on site"
-    But from a Direct or Group conversation, the title is only "Dana Ruiz"
+    But from a People Conversation, the title is only "Dana Ruiz"
 
 Rationale:
 People decide from the notification alone whether to open Connect now.
+
+Status: draft
 
 Needs: server
 
@@ -85,29 +270,61 @@ or that the sender is connecting with the person.
 
     Given Dana sends a message with no text in the Room "Philly Roofing"
     Then the notification says "Dana Ruiz wrote a message in Philly Roofing"
-    And from a Direct conversation it says "Dana Ruiz is Connecting with you"
+    And from a DM it says "Dana Ruiz is Connecting with you"
     And if even the sender is unknown, it says "Someone is connecting with you..."
 
 Rationale:
 An empty notification looks like a fault, and still tells the person nothing.
 
+Status: draft
+
 Needs: server
 
-### NOTIFY-TAP-001: Tapping a notification shows that message
+### NOTIFY-TEXT-003: iOS can hide message previews
+`req~NOTIFY-TEXT-003~1`
+
+On iOS, a person can hide message previews in notifications. A hidden-preview
+notification says the sender is Connecting with them instead of showing the message.
+
+    Given a person on iOS has hidden notification previews
+    When Dana Ruiz sends them a message
+    Then the notification says "Dana Ruiz is Connecting with you…"
+    And does not show the message
+
+Rationale:
+A phone's lock screen can be seen by others, so people need a way to keep message text off it.
+
+Needs: ios
+
+### NOTIFY-TEXT-004: Web notifications say "New Message in Connect"
+`req~NOTIFY-TEXT-004~1`
+
+On Browser and PWA, a notification says "New Message in Connect".
+
+    Given a person has notifications on in the Browser
+    When a notifying message arrives
+    Then the notification says "New Message in Connect"
+
+Rationale:
+The notification tells the person there is something to read in Connect.
+
+Needs: browser, pwa
+
+### NOTIFY-TAP-001: Tapping a notification opens at the New Message Indicator
 `req~NOTIFY-TAP-001~1`
 
-Tapping a notification opens the conversation at that message, then moves on to the
-newest messages. Seeing it there does not by itself mark the conversation read.
+Tapping a notification opens its conversation scrolled to the New Message Indicator.
+Opening it does not by itself mark the conversation read.
 
     Given a person gets a notification for a message in a busy conversation
     When they tap it
-    Then the conversation opens with that message in view
-    And then moves on towards the newest messages
+    Then the conversation opens scrolled to the New Message Indicator
+    And it stays unread until they reach the bottom
 
 Rationale:
-The notification was about that message, so that is what the person expects to see first.
+The first unread message is where the person needs to start reading to catch up.
 
-Needs: ccl, ios, macos, web
+Needs: ccl, browser, pwa, macos, ios
 
 ### NOTIFY-TAP-002: A notification for a deleted message opens the conversation
 `req~NOTIFY-TAP-002~1`
@@ -123,39 +340,42 @@ conversation at its newest messages.
 Rationale:
 Showing an error for something the person cannot fix is worse than showing them the conversation.
 
-Needs: ccl, ios, macos, web
+Status: draft
 
-### NOTIFY-TAP-003: Clicking a notification brings that conversation forward
+Needs: ccl, browser, pwa, macos, ios
+
+### NOTIFY-TAP-003: Clicking a Browser notification finds the right tab
 `req~NOTIFY-TAP-003~1`
 
-Clicking a Connect notification on a computer opens its conversation in the Connect
-tab or window already open, and brings it to the front. If none is open, a new one
-opens.
+Clicking a Connect notification in the Browser focuses a tab already showing that
+conversation; otherwise the last-focused Connect tab, which then shows the
+conversation; otherwise a new tab.
 
-    Given a person has Connect open in a browser tab behind other tabs
-    When they click a Connect notification
-    Then that tab comes to the front
-    And shows the conversation the notification was about
+    Given a person has two Connect tabs open, neither showing "Philly Roofing"
+    When they click a notification from "Philly Roofing"
+    Then the Connect tab they used last comes to the front
+    And it shows "Philly Roofing"
+    But if no Connect tab is open, a new tab opens on "Philly Roofing"
 
 Rationale:
 Opening a second copy of Connect, or switching a tab the person cannot see, both leave them looking for the message.
 
-Needs: web
+Needs: browser
 
-### NOTIFY-TAP-004: Reading a conversation clears its notifications
+### NOTIFY-TAP-004: Reading a conversation clears its notifications in Firefox and the PWA
 `req~NOTIFY-TAP-004~1`
 
-When a person reads a conversation, its notifications are removed from the device's
-notification list.
+In Firefox and in the PWA, when a person reads a conversation, its notification
+banners are removed from the device's notification list.
 
-    Given a person has three notifications from "Philly Roofing"
+    Given a person has three notifications from "Philly Roofing" in Firefox
     When they read the conversation
     Then those three notifications are gone
 
 Rationale:
 Notifications for messages already read are clutter, and make people check twice.
 
-Needs: web
+Needs: browser, pwa
 
 ### NOTIFY-TAP-005: No notification for the conversation you are reading
 `req~NOTIFY-TAP-005~1`
@@ -166,12 +386,57 @@ A person is not notified about a message in the conversation they are looking at
     When a message arrives in it
     Then no notification pops up for it
 
+Rationale:
+Open: should a notification appear for a message in the conversation the person is already looking at?
+
 Status: draft
 
-Rationale:
-Product to decide. Today the web shows a notification even while the person is reading that very conversation.
+Needs: browser, pwa
 
-Needs: web
+### NOTIFY-TAP-006: A PWA notification opens in the PWA
+`req~NOTIFY-TAP-006~1`
+
+Tapping a notification from the PWA opens the conversation in the PWA, not in a
+browser tab.
+
+    Given a person uses the PWA on Android
+    When they tap a Connect notification
+    Then the conversation opens in the PWA
+
+Rationale:
+A person who installed the app expects to stay in it.
+
+Needs: pwa
+
+### NOTIFY-TAP-007: Safari keeps notification banners after reading
+`req~NOTIFY-TAP-007~1`
+
+In Safari, reading a conversation does not remove its notification banners; the
+person clears them.
+
+    Given a person has three notifications from "Philly Roofing" in Safari
+    When they read the conversation
+    Then the three notifications stay until the person clears them
+
+Rationale:
+Safari leaves delivered notifications for the person to clear.
+
+Needs: browser
+
+### NOTIFY-TAP-008: Clearing a notification on one Apple device clears it on the others
+`req~NOTIFY-TAP-008~1`
+
+When a person clears a Connect notification on one of their Apple devices, it is
+also cleared on their other Apple devices.
+
+    Given a person has the same Connect notification on their Mac and iPhone
+    When they clear it on the Mac
+    Then it is also gone from the iPhone
+
+Rationale:
+A notification already dealt with on one device is clutter on the others.
+
+Needs: server, macos, ios
 
 ### NOTIFY-REPLY-001: A reply from a notification is sent once
 `req~NOTIFY-REPLY-001~1`
@@ -186,7 +451,9 @@ sent later without the person knowing.
 Rationale:
 A message that turns up hours later, out of context, can do more harm than one that never arrived.
 
-Needs: ccl, ios, macos
+Status: draft
+
+Needs: ccl, macos, ios
 
 ### NOTIFY-REPLY-002: A reply that fails from a notification shows in the conversation
 `req~NOTIFY-REPLY-002~1`
@@ -202,22 +469,54 @@ with Retry, unless the person was not allowed to post there or was signed out.
 Rationale:
 The person thinks they replied. They must be able to find out it did not go, and send it when they choose.
 
-Needs: ccl, ios, macos
+Status: draft
 
-### NOTIFY-REPLY-003: Reacting from a notification always adds the reaction
+Needs: ccl, macos, ios
+
+### NOTIFY-REPLY-003: Liking from a notification always adds the reaction
 `req~NOTIFY-REPLY-003~1`
 
-Reacting to a message from its notification always adds the reaction. It never
-removes one already there.
+Liking a message from its notification always adds the like. It never removes one
+already there.
 
-    Given a person already reacted 👍 to a message
-    When they react 👍 again from its notification
-    Then their 👍 stays
+    Given a person already liked a message
+    When they choose Like again from its notification
+    Then their like stays
 
 Rationale:
 From a notification the person cannot see what they already did, so a reaction there can only mean "add".
 
-Needs: ccl, ios, macos
+Status: draft
+
+Needs: ccl, macos, ios
+
+### NOTIFY-REPLY-004: Like from a notification on iOS
+`req~NOTIFY-REPLY-004~1`
+
+On iOS, a person can Like a message straight from its notification.
+
+    Given a person on iOS gets a notification for a message
+    When they choose Like on the notification
+    Then the message gets their like reaction without opening Connect
+
+Rationale:
+A quick acknowledgement shouldn't need the app opened.
+
+Needs: ios
+
+### NOTIFY-REPLY-005: Reply from a notification on iOS
+`req~NOTIFY-REPLY-005~1`
+
+On iOS, a person can reply to a message straight from its notification.
+
+    Given a person on iOS gets a notification for a message
+    When they choose Reply and send "On my way"
+    Then "On my way" is sent in that conversation without opening Connect
+
+Rationale:
+A short answer shouldn't need the app opened.
+
+Needs: ios
 
 ### NOTIFY-DEVICE-001: Turning notifications off or signing out stops them
 `req~NOTIFY-DEVICE-001~1`
@@ -232,7 +531,9 @@ that device stops getting Connect notifications.
 Rationale:
 Notifications on a device someone has stopped using leak conversations to whoever has it now.
 
-Needs: ios, macos, web
+Status: draft
+
+Needs: browser, pwa, macos, ios
 
 ### NOTIFY-DEVICE-002: Notifications are in the device's language
 `req~NOTIFY-DEVICE-002~1`
@@ -246,23 +547,27 @@ Notification text is written in the language the person's device uses.
 Rationale:
 A notification is read in a glance. It must be in the person's own language.
 
-Needs: server, ios, macos, web
+Status: draft
+
+Needs: server, browser, pwa, macos, ios
 
 ### NOTIFY-DEVICE-003: Notifications are turned on per browser
 `req~NOTIFY-DEVICE-003~1`
 
-In a web browser, a person turns Connect notifications on or off for that browser
-only, from Settings. Connect remembers if they turned them off.
+On Browser and PWA, a person turns Connect notifications on or off for that browser
+only, from the User Menu. Connect remembers if they turned them off.
 
-    Given a person uses Connect in Chrome and as an installed app
+    Given a person uses Connect in Chrome and as the PWA
     When they turn notifications off in Chrome
     Then Chrome stops showing Connect notifications
-    And the installed app keeps showing them
+    And the PWA keeps showing them
 
 Rationale:
 People choose where they want to be interrupted, device by device.
 
-Needs: web
+Status: draft
+
+Needs: browser, pwa
 
 ### NOTIFY-DEVICE-004: Blocked notifications explain how to unblock them
 `req~NOTIFY-DEVICE-004~1`
@@ -271,14 +576,16 @@ If a person has blocked notifications in their browser and tries to turn them on
 Connect tells them how to unblock them.
 
     Given a person blocked Connect's notifications in their browser
-    When they turn notifications on in Settings
+    When they turn notifications on in the User Menu
     Then they see "Notifications blocked. Enable them in system or browser settings to continue."
     And the setting stays off
 
 Rationale:
 Only the browser can undo a block, so the person has to be told where to go.
 
-Needs: web
+Status: draft
+
+Needs: browser, pwa
 
 ### NOTIFY-DEVICE-005: Browsers without notifications point to the app
 `req~NOTIFY-DEVICE-005~1`
@@ -287,15 +594,17 @@ If a browser cannot show notifications, turning them on tells the person to use 
 Connect app instead.
 
     Given a browser that cannot show notifications
-    When a person turns notifications on in Settings
+    When a person turns notifications on in the User Menu
     Then they see "Notifications aren't available in this browser. To receive alerts for new messages, please download the Connect app."
 
 Rationale:
 The person can still get notifications, just not in that browser.
 
-Needs: web
+Status: draft
 
-### NOTIFY-DEVICE-006: When the web asks to send notifications
+Needs: browser, pwa
+
+### NOTIFY-DEVICE-006: When Browser and PWA ask to send notifications
 `req~NOTIFY-DEVICE-006~1`
 
 Connect asks for permission to send notifications once, at a moment the person
@@ -306,9 +615,41 @@ chooses, not every time it opens.
     Then they are not asked straight away
     But are offered notifications in a way they can accept or put off
 
+Rationale:
+Open: when should Connect ask for permission to send notifications? Asking as soon as a person signs in, and on every visit until they answer, annoys people, and browsers start hiding sites that ask too often.
+
 Status: draft
 
-Rationale:
-Product to decide. Today the browser asks as soon as the person signs in, and again on every visit until they answer. Browsers start hiding sites that ask too often.
+Needs: browser, pwa
 
-Needs: web
+### NOTIFY-DEVICE-007: The device's notification permission comes first
+`req~NOTIFY-DEVICE-007~1`
+
+If a person has not allowed Connect to notify them on a device, that device shows no
+Connect notifications, whatever the Room's notification level.
+
+    Given a person has not allowed notifications for Connect on their phone
+    And a Room is set to All Messages
+    When someone posts in the Room
+    Then the phone shows no notification
+
+Rationale:
+The device's own setting is the person's final word on being interrupted.
+
+Needs: browser, pwa, macos, ios
+
+### NOTIFY-DEVICE-008: Focus modes come first on Apple devices
+`req~NOTIFY-DEVICE-008~1`
+
+On macOS and iOS, a Focus mode that silences Connect stops its notifications,
+whatever the Room's notification level.
+
+    Given a person has a Focus mode on that silences Connect
+    And a Room is set to All Messages
+    When someone posts in the Room
+    Then the device shows no notification
+
+Rationale:
+People use Focus to protect their time; Connect must respect it.
+
+Needs: macos, ios

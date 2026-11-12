@@ -50,15 +50,15 @@ example, `ARCHIVE` is about archiving in Conversations and in both bridges.
 ### Behavior on only some devices
 
 Areas are named for **what a person can do**, never for a device or platform. There
-is no "Apple" or "web" area. Which devices a rule applies to is said by its `Needs`:
+is no "Apple" or "web" area. Which clients a rule applies to is said by its `Needs`:
 
 | Behavior | Rule | Needs |
 |---|---|---|
-| Sending a message with Siri | VOICE-SEND-001 in Voice assistants | `ios` |
-| Sharing a photo into Connect from another app | SHARE-PICK-001 in Sharing into Connect | `ios, macos, web` |
-| Installing Connect on the home screen from the browser | APP-INSTALL-001 in The Connect app | `web` |
-| Enter sends a message on a computer | MSG-COMPOSE-001 in Messages | `web` |
-| Shortcuts from pressing and holding the app icon | APP-ICON-004 in The Connect app | `ios, web` |
+| Sending a message with Siri | VOICE-SEND-001 in Voice assistants | `macos, ios` |
+| Sharing into Connect from Apple apps' share menus | SHARE-SHEET-001 in Sharing into Connect | `macos, ios` |
+| Installing the PWA from the browser | APP-INSTALL-001 in The Connect app | `pwa` |
+| Enter sends a message in the Browser | MSG-COMPOSE-001 in Messages | `browser` |
+| A failed message turns red with Retry and Delete | MSG-SEND-002 in Messages | `ccl, macos, ios` |
 
 This keeps a behavior in one place when it spreads to more devices. If Android
 sharing arrives, the sharing rules stay where they are and gain one more target in
@@ -109,20 +109,42 @@ areas are easier to find your way around.
 - Rules in a file are ordered by the topic table, then by number.
 - Only `spec/` is traced. The README and `templates/` contain example IDs that are
   not rules.
+- Words in rules are [glossary](../glossary/) terms. Screen size and tenant go in
+  the rule's text, not in `Needs`.
+
+## Checks
+
+`python3 scripts/build.py --check` runs on every pull request and fails it when:
+
+- a heading and its stamp don't match, or an ID is used twice;
+- a rule's area or topic isn't declared at the top of its file;
+- `Status` is anything but `draft` or `rejected`;
+- `Needs` is missing, names an unknown target, is out of order, or has `ccl`
+  without a client;
+- a rule mentions a ticket ID, QA test ID, pull request or date. Rules describe
+  behavior only; those belong in the pull request.
+
+Without `--check` it also builds `dist/`, the published bundle (see
+[Publishing](publishing.md)).
 
 ## Needs
 
 `Needs` values are called **targets**. Each is an OFT artifact type: one place
 that must prove the rule.
-They are written in this order: `nitro`, `nitroid`, `server`, `ccl`, `ios`,
-`macos`, `web`.
+They are written in this order: `nitro`, `nitroid`, `server`, `ccl`, `browser`,
+`pwa`, `macos`, `ios`.
 
 They fall into two groups, and the README gives each group a different owner:
 
 | Group | Targets | Who writes them | Answers |
 |---|---|---|---|
-| Apps | `ios`, `macos`, `web` | Product, when writing the rule | Where does a person see this? |
+| Clients | `browser`, `pwa`, `macos`, `ios` | Product, when writing the rule | Where does a person see this? |
 | Systems | `nitro`, `nitroid`, `server`, `ccl` | Engineering, in review | What has to work for it to happen? |
+
+`browser` and `pwa` are separate targets even though connect-web builds both,
+because they behave differently (Enter in the composer, paste, where layout is
+saved) and the guide documents them separately. A connect-web test tags whichever
+it proves, or both.
 
 Product proposals often arrive with only the apps. Adding the systems is part of
 reviewing the pull request.
@@ -141,12 +163,13 @@ added alongside them:
   out can clear everything in the CCL while an app still shows the old screen, so
   `ccl` proves the decision and each app proves the person sees it.
 
-`Needs: ccl, ios, macos, web` does not say how each app gets the behavior, only
+`Needs: ccl, browser, pwa, macos, ios` does not say how each app gets the behavior, only
 that each must have it. Today connect-web does not use the CCL, so it meets these
 rules with its own code. When the web moves onto the CCL, those rules stay as they
-are. What changes is how the `web` tests prove them, and many become checks that
-the web shows what the CCL decided. The rules with both `ccl` and `web` are the
-behavior the move must keep, so their `web` coverage tracks the move's progress.
+are. What changes is how the `browser` and `pwa` tests prove them, and many become
+checks that the web shows what the CCL decided. The rules with both `ccl` and
+`browser` or `pwa` are the behavior the move must keep, so their web coverage
+tracks the move's progress.
 
 ### Every hop
 
@@ -170,7 +193,7 @@ func test_failedMessageOffersRetry() { … }
 ```
 
 ```ts
-// [web->req~MSG-SEND-002~1]
+// [browser->req~MSG-SEND-002~1]
 it("offers retry on a failed message", () => { … });
 ```
 

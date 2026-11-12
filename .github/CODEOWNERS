@@ -1,7 +1,11 @@
-# Product owns what Connect does. Engineering owns the tooling and the tags.
+# Each layer has one owner, who approves changes to it.
 # Replace the placeholder teams with real ones.
 
 /spec/        @your-org/connect-product
+/glossary/    @your-org/connect-ux
+/design/      @your-org/connect-ux
+/context/     @your-org/connect-product @your-org/connect-ux
+/docs/        @your-org/connect-product @your-org/connect-engineering
+/AGENTS.md    @your-org/connect-product @your-org/connect-ux
 /scripts/     @your-org/connect-engineering
 /.github/     @your-org/connect-engineering
-/docs/        @your-org/connect-product @your-org/connect-engineering
