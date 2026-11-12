@@ -6,7 +6,8 @@ name: Check and publish
 on:
   pull_request:
   push:
-    branches: [main]
+    # context-guide-merge publishes the preview until it merges; drop it then.
+    branches: [main, context-guide-merge]
   workflow_dispatch:
 
 permissions:
